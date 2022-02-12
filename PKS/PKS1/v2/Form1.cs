@@ -68,8 +68,8 @@ namespace v2
 
             foreach (var detail in details) // перенесение содержимого сервера в lvRemote
             {
-                // если в первом элементе, содержащем разрешения, есть буква 'd', то это папка
-                // тогда к lvRemote добавляется самый последний элемент, содержащий название файла
+                // если в первом элементе массива метаданных, содержащем разрешения, есть буква 'd', то это папка
+                // тогда к lvRemote добавляется самый последний элемент, содержащий название
                 if (detail[0].Contains('d')) // это папка
                     lvRemote.Items.Add(detail[detail.Length - 1], 1);
                 else // это файл
@@ -112,8 +112,7 @@ namespace v2
         // Двойной щелчок по lvRemote, перемещение вниз по серверной папке
         private void lvRemote_DoubleClick(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = lvRemote.SelectedItems[0];
-            string selectedItemName = selectedItem.Text; // получение названия выбранной папки
+            string selectedItemName = lvRemote.SelectedItems[0].Text; // получение названия выбранной папки
             CurrentRemotePath += "/" + selectedItemName; // обновление текущего серверного пути вместе с выбранной папкой
 
             List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
@@ -131,8 +130,7 @@ namespace v2
         // Перемещение вниз по локальной папке
         private void lvLocal_DoubleClick(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = lvLocal.SelectedItems[0];
-            string selectedItemName = selectedItem.Text; // получение названия выбранного элемента
+            string selectedItemName = lvLocal.SelectedItems[0].Text; // получение названия выбранного элемента
             string selectedItemPath = CurrentLocalPath + "/" + selectedItemName;
             if (File.Exists(selectedItemPath)) // если выбран файл, а не директория, выход из метода
                 return;
@@ -189,8 +187,7 @@ namespace v2
         {
             try
             {
-                ListViewItem selectedItem = lvRemote.SelectedItems[0];
-                string selectedItemName = selectedItem.Text;
+                string selectedItemName = lvRemote.SelectedItems[0].Text;
                 string sourcePath = CurrentRemotePath + "/" + selectedItemName;
                 string destinationPath = CurrentLocalPath + "/" + selectedItemName;
 
@@ -212,8 +209,7 @@ namespace v2
         {
             try
             {
-                ListViewItem selectedItem = lvLocal.SelectedItems[0];
-                string selectedItemName = selectedItem.Text;
+                string selectedItemName = lvLocal.SelectedItems[0].Text;
                 string uploadableFilePath = CurrentLocalPath + "/" + selectedItemName;
                 string destinationFilePath = CurrentRemotePath + "/" + selectedItemName;
 
