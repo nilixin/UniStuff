@@ -115,25 +115,30 @@ namespace v2
         {
             try
             {
+                // добавление файла с названием, которого нет
+                // если такое название уже найдено, то к нему прибавляется номер копии
                 string initialName = fileName.Item1;
                 int copyNumber = 1;
-                while (File.Exists(fileName.Item1 + fileName.Item2))
+                List<string[]>? details = ListDirectoryDetails(path, username, password);
+                foreach (var detail in details)
                 {
-                    fileName = new Tuple<string, string>(initialName + copyNumber, fileName.Item2);
-                    copyNumber += 1;
+                    while (detail[detail.Length - 1] == fileName.Item1 + fileName.Item2 && // пока в папке есть файл с этим названием
+                        !detail[0].Contains('d'))
+                    {
+                        fileName = new Tuple<string, string>(initialName + copyNumber, fileName.Item2); // добавить цифру к названию файла
+                        copyNumber += 1; // и увеличить добавляемую цифру для следующей итерации, если и этот файл будет найден
+                    }
                 }
                 string finalName = fileName.Item1 + fileName.Item2;
+                string finalPath = path + "/" + finalName;
 
-                FtpWebRequest newRequest = (FtpWebRequest)WebRequest.Create(new Uri(path + "/" + finalName));
-                newRequest.Method = WebRequestMethods.Ftp.UploadFile;
-                newRequest.Credentials = new NetworkCredential(username, password);
-
-                Stream requestStream = newRequest.GetRequestStream();
-
-                FileStream fileStream = File.Create(finalName);
-
-                requestStream.Close();
-                fileStream.Close();
+                // создание файла
+                FtpWebRequest fileRequest = (FtpWebRequest)WebRequest.Create(new Uri(finalPath));
+                fileRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                fileRequest.Credentials = new NetworkCredential(username, password);
+                
+                FtpWebResponse response = (FtpWebResponse)fileRequest.GetResponse();
+                response.Close();
 
                 return finalName;
             }
@@ -148,21 +153,29 @@ namespace v2
         {
             try
             {
+                // добавление папки с названием, которого нет
+                // если такое название уже найдено, то к нему прибавляется номер копии
                 string initialName = directoryName;
                 int copyNumber = 1;
-                while (Directory.Exists(directoryName))
+                List<string[]>? details = ListDirectoryDetails(path, username, password);
+                foreach (var detail in details)
                 {
-                    directoryName = initialName + copyNumber;
-                    copyNumber += 1;
+                    while (detail[detail.Length - 1] == directoryName && // пока в папке есть папка с этим названием
+                        detail[0].Contains('d'))
+                    {
+                        directoryName = initialName + copyNumber; // добавить цифру к названию папки
+                        copyNumber += 1; // и увеличить добавляемую цифру для следующей итерации, если и этот файл будет найден
+                    }
                 }
-                string fullName = path + "/" + directoryName;
+                string finalPath = path + "/" + directoryName;
 
-                FtpWebRequest newRequest = (FtpWebRequest)WebRequest.Create(new Uri(fullName));
-                newRequest.Method= WebRequestMethods.Ftp.MakeDirectory;
-                newRequest.Credentials = new NetworkCredential(username,password);
+                // создание папки
+                FtpWebRequest directoryRequest = (FtpWebRequest)WebRequest.Create(new Uri(finalPath));
+                directoryRequest.Method = WebRequestMethods.Ftp.MakeDirectory;
+                directoryRequest.Credentials = new NetworkCredential(username, password);
 
-                //Directory.CreateDirectory(directoryName);
-                // TODO не работает добавление директорий. почему?
+                FtpWebResponse response = (FtpWebResponse)directoryRequest.GetResponse();
+                response.Close();
 
                 return directoryName;
             }
