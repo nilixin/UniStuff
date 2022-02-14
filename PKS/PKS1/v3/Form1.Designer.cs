@@ -45,6 +45,7 @@
             this.tbServerIp.Name = "tbServerIp";
             this.tbServerIp.Size = new System.Drawing.Size(312, 27);
             this.tbServerIp.TabIndex = 0;
+            this.tbServerIp.Text = "192.168.0.104";
             // 
             // lServerIP
             // 
@@ -100,6 +101,7 @@
             this.tbLocalFolder.Name = "tbLocalFolder";
             this.tbLocalFolder.Size = new System.Drawing.Size(212, 27);
             this.tbLocalFolder.TabIndex = 5;
+            this.tbLocalFolder.Text = "C:\\Users\\knexi\\Desktop\\fueles";
             // 
             // label2
             // 
@@ -116,6 +118,7 @@
             this.tbFileName.Name = "tbFileName";
             this.tbFileName.Size = new System.Drawing.Size(312, 27);
             this.tbFileName.TabIndex = 7;
+            this.tbFileName.Text = "wow.txt";
             // 
             // Form1
             // 

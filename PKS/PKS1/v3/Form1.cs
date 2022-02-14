@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using Tftp.Net;
+using GSF.Net.TFtp;
 
 namespace v3
 {
@@ -45,17 +45,23 @@ namespace v3
             }
 
             IPAddress ip = new IPAddress(ipArr);
-            TftpClient client = new TftpClient(ip);
+            TFtpClient client = new TFtpClient(ip);
+            var transfer = client.Download(tbFileName.Text); // подключение и запрос на скачивание
 
-            var transfer = client.Download(tbFileName.Text);
+            transfer.OnFinished += new TFtpEventHandler(transfer_OnFinshed);
+            transfer.OnError += new TFtpErrorHandler(transfer_OnError);
 
-            transfer.OnFinished += new TftpEventHandler(transfer_OnFinshed);
-            transfer.OnError += new TftpErrorHandler(transfer_OnError);
+            MemoryStream ms = new MemoryStream();
+            transfer.Start(ms); // перенос в поток
 
-            Stream stream = new MemoryStream();
-            transfer.Start(stream);
-
-            TransferFinishedEvent.WaitOne();
+            string filePath = tbLocalFolder.Text + "\\" + tbFileName.Text;
+            using (var fs = new FileStream(filePath, FileMode.Create))
+            {
+                byte[] bytes = new byte[ms.Length];
+                ms.Read(bytes, 0, bytes.Length);
+                fs.Write(bytes, 0, bytes.Length);
+                ms.Close();
+            }
         }
 
         private void bUpload_Click(object sender, EventArgs e)
@@ -76,31 +82,33 @@ namespace v3
             }
 
             IPAddress ip = new IPAddress(ipArr);
-            TftpClient client = new TftpClient(ip);
+            TFtpClient client = new TFtpClient(ip);
+            var transfer = client.Upload(tbFileName.Text);
 
-            string finalPath = tbLocalFolder.Text + "\\" + tbFileName.Text;
-            var transfer = client.Upload(finalPath);
+            transfer.OnFinished += new TFtpEventHandler(transfer_OnFinshed);
+            transfer.OnError += new TFtpErrorHandler(transfer_OnError);
 
-            transfer.OnFinished += new TftpEventHandler(transfer_OnFinshed);
-            transfer.OnError += new TftpErrorHandler(transfer_OnError);
+            MemoryStream ms = new MemoryStream();
 
-            Stream stream = new MemoryStream();
-            transfer.Start(stream);
+            string filePath = tbLocalFolder.Text + "\\" + tbFileName.Text;
+            using (var fs = new FileStream(filePath, FileMode.Open))
+            {
+                byte[] bytes = new byte[fs.Length];
+                fs.Read(bytes, 0, (int)fs.Length);
+                ms.Write(bytes, 0, (int)fs.Length);
+            }
 
-            TransferFinishedEvent.WaitOne();
-
+            transfer.Start(ms);
         }
 
-        private void transfer_OnFinshed(ITftpTransfer transfer)
+        private void transfer_OnFinshed(ITFtpTransfer transfer)
         {
-            MessageBox.Show("Операция успешна!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            TransferFinishedEvent.Set();
+            MessageBox.Show("OK");
         }
 
-        private void transfer_OnError(ITftpTransfer transfer, TftpTransferError error)
+        private void transfer_OnError(ITFtpTransfer transfer, TFtpTransferError error)
         {
-            MessageBox.Show("Операция неудачна", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            TransferFinishedEvent.Set();
+            MessageBox.Show("D'oh!\n" + error.ToString());
         }
     }
 }
