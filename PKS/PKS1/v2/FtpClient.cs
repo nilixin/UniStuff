@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace v2
 {
-    public static class FtpAdapter
+    internal static class FtpClient
     {
         // Возвращает список массивов с метаданными файлов указанной директории на сервере
         // Используется для получения названия файлов и папок, а так же для уточнения файл это или папка
@@ -17,8 +17,8 @@ namespace v2
                 FtpWebRequest detailsRequest = (FtpWebRequest)WebRequest.Create(requestUriString);
                 detailsRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
                 detailsRequest.Credentials = new NetworkCredential(username, password);
-                FtpWebResponse response = (FtpWebResponse)detailsRequest.GetResponse();
-                Stream responseStream = response.GetResponseStream();
+                FtpWebResponse detailsResponse = (FtpWebResponse)detailsRequest.GetResponse();
+                Stream responseStream = detailsResponse.GetResponseStream();
 
                 List<string[]> details = new List<string[]>();
                 using (var reader = new StreamReader(responseStream))
@@ -30,7 +30,7 @@ namespace v2
                     }
                 }
 
-                response.Close();
+                detailsResponse.Close();
                 responseStream.Close();
 
                 return details;
@@ -175,6 +175,10 @@ namespace v2
                 directoryRequest.Credentials = new NetworkCredential(username, password);
 
                 FtpWebResponse response = (FtpWebResponse)directoryRequest.GetResponse();
+
+                FtpWebResponse statusResponse = (FtpWebResponse)directoryRequest.GetResponse(); // добавление второго статуса
+                statusResponse.Close();
+
                 response.Close();
 
                 return directoryName;

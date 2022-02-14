@@ -34,8 +34,8 @@ namespace v2
             toolTip.SetToolTip(bNewRemoteFile, "Создать файл");
             #endregion
 
-            tbServer.Text = "ftp://localhost";
-            tbUsername.Text = "User";
+            tbFtpUrl.Text = "ftp://localhost";
+            tbFtpUsername.Text = "User";
             
             ImageList.ImageSize = new Size(32, 32); // добавление иконок в lvRemote и lvLocal
             ImageList.Images.Add(Image.FromFile(@"../../../icons/file.png"));
@@ -46,7 +46,7 @@ namespace v2
             CurrentLocalPath = @"C:/"; // изменение текущего локального пути
             LocalDirectoryDetails(CurrentLocalPath);
 
-            ConnectionStatus.None(lConnectionStatus);
+            ShowStatus.FtpNone(lFtpConnectionStatus);
             bDownload.Enabled = false;
             bUpload.Enabled = false;
             bNewRemoteFolder.Enabled = false;
@@ -58,11 +58,11 @@ namespace v2
         // Устанавливает соединение с сервером, запоминает введённые данные для дальнейшего использования
         private void bConnect_Click(object sender, EventArgs e)
         {
-            List<string[]>? details = FtpAdapter.ListDirectoryDetails(tbServer.Text, tbUsername.Text, tbPassword.Text);
+            List<string[]>? details = FtpClient.ListDirectoryDetails(tbFtpUrl.Text, tbFtpUsername.Text, tbFtpPassword.Text);
             lvRemote.Items.Clear();
             if (details == null) // если вернуло null, то подключение не произошло
             {
-                ConnectionStatus.None(lConnectionStatus);
+                ShowStatus.FtpNone(lFtpConnectionStatus);
                 return;
             }
 
@@ -76,12 +76,12 @@ namespace v2
                     lvRemote.Items.Add(detail[detail.Length - 1], 0);
             }
 
-            ConnectionStatus.Established(lConnectionStatus); // обновление статуса об успешном подключении
+            ShowStatus.FtpEstablished(lFtpConnectionStatus); // обновление статуса об успешном подключении
 
-            CurrentRemotePath = tbServer.Text; // обновление текущего серверного пути
-            Server = tbServer.Text; // сохранение введённых данных
-            Username = tbUsername.Text;
-            Password = tbPassword.Text;
+            CurrentRemotePath = tbFtpUrl.Text; // обновление текущего серверного пути
+            Server = tbFtpUrl.Text; // сохранение введённых данных
+            Username = tbFtpUsername.Text;
+            Password = tbFtpPassword.Text;
 
             bDownload.Enabled = true; // активация кнопок
             bUpload.Enabled = true;
@@ -94,12 +94,12 @@ namespace v2
         // Cбрасывает введённый в поля текст
         private void bReset_Click(object sender, EventArgs e)
         {
-            tbServer.Text = string.Empty;
-            tbUsername.Text = string.Empty;
-            tbPassword.Text = string.Empty;
+            tbFtpUrl.Text = string.Empty;
+            tbFtpUsername.Text = string.Empty;
+            tbFtpPassword.Text = string.Empty;
             lvRemote.Items.Clear();
 
-            ConnectionStatus.None(lConnectionStatus);
+            ShowStatus.FtpNone(lFtpConnectionStatus);
 
             bDownload.Enabled = false; // деактивация кнопок скачивания и загрузки
             bUpload.Enabled = false;
@@ -115,7 +115,7 @@ namespace v2
             string selectedItemName = lvRemote.SelectedItems[0].Text; // получение названия выбранной папки
             CurrentRemotePath += "/" + selectedItemName; // обновление текущего серверного пути вместе с выбранной папкой
 
-            List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
+            List<string[]>? details = FtpClient.ListDirectoryDetails(CurrentRemotePath, Username, Password);
 
             lvRemote.Items.Clear();
             foreach (var detail in details) // перенесение содержимого сервера в lvRemote
@@ -153,7 +153,7 @@ namespace v2
         {
             CurrentRemotePath = Server;
 
-            List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
+            List<string[]>? details = FtpClient.ListDirectoryDetails(CurrentRemotePath, Username, Password);
 
             lvRemote.Items.Clear();
             foreach (var detail in details) // перенесение содержимого сервера в lvRemote
@@ -191,7 +191,7 @@ namespace v2
                 string sourcePath = CurrentRemotePath + "/" + selectedItemName;
                 string destinationPath = CurrentLocalPath + "/" + selectedItemName;
 
-                bool isDownloaded = FtpAdapter.DownloadFile(sourcePath, destinationPath, Username, Password);
+                bool isDownloaded = FtpClient.DownloadFile(sourcePath, destinationPath, Username, Password);
                 if (isDownloaded)
                 {
                     LocalDirectoryDetails(CurrentLocalPath); // обновление lvLocal
@@ -213,10 +213,10 @@ namespace v2
                 string uploadableFilePath = CurrentLocalPath + "/" + selectedItemName;
                 string destinationFilePath = CurrentRemotePath + "/" + selectedItemName;
 
-                bool isUploded = FtpAdapter.UploadFile(uploadableFilePath, destinationFilePath, Username, Password);
+                bool isUploded = FtpClient.UploadFile(uploadableFilePath, destinationFilePath, Username, Password);
                 if (isUploded)
                 {
-                    List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
+                    List<string[]>? details = FtpClient.ListDirectoryDetails(CurrentRemotePath, Username, Password);
                     lvRemote.Items.Clear();
                     foreach (var detail in details) // перенесение содержимого сервера в lvRemote
                     {
@@ -253,7 +253,7 @@ namespace v2
         // Обновление lvRemote
         private void bRemoteRefresh_Click(object sender, EventArgs e)
         {
-            List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
+            List<string[]>? details = FtpClient.ListDirectoryDetails(CurrentRemotePath, Username, Password);
 
             lvRemote.Items.Clear();
             foreach (var detail in details) // перенесение содержимого сервера в lvRemote
@@ -268,11 +268,11 @@ namespace v2
         // Добавление новой пустой папки на сервер
         private void bNewRemoteFolder_Click(object sender, EventArgs e)
         {
-            string? addedDirectoryName = FtpAdapter.NewDirectory(CurrentRemotePath, "NewDirectory", Username, Password);
+            string? addedDirectoryName = FtpClient.NewDirectory(CurrentRemotePath, "NewDirectory", Username, Password);
             if (addedDirectoryName != null)
             {
                 // обновление данных
-                List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
+                List<string[]>? details = FtpClient.ListDirectoryDetails(CurrentRemotePath, Username, Password);
                 lvRemote.Items.Clear();
                 foreach (var detail in details) // перенесение содержимого сервера в lvRemote
                 {
@@ -295,11 +295,11 @@ namespace v2
         // Добавление нового пустого файла на сервер
         private void bNewRemoteFile_Click(object sender, EventArgs e)
         {
-            string? addedFileName = FtpAdapter.NewFile(CurrentRemotePath, new Tuple<string, string>("NewFile", ".txt"), Username, Password);
+            string? addedFileName = FtpClient.NewFile(CurrentRemotePath, new Tuple<string, string>("NewFile", ".txt"), Username, Password);
             if (addedFileName != null)
             {
                 // обновление данных
-                List<string[]>? details = FtpAdapter.ListDirectoryDetails(CurrentRemotePath, Username, Password);
+                List<string[]>? details = FtpClient.ListDirectoryDetails(CurrentRemotePath, Username, Password);
                 lvRemote.Items.Clear();
                 foreach (var detail in details) // перенесение содержимого сервера в lvRemote
                 {
@@ -325,12 +325,17 @@ namespace v2
             LocalDirectoryDetails(CurrentLocalPath);
         }
 
+        private void bStartTftpServer_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void DefineTabOrder()
         {
-            tbServer.TabIndex = 0;
-            tbUsername.TabIndex = 1;
-            tbPassword.TabIndex = 2;
-            bConnect.TabIndex = 3;
+            tbFtpUrl.TabIndex = 0;
+            tbFtpUsername.TabIndex = 1;
+            tbFtpPassword.TabIndex = 2;
+            bFtpConnect.TabIndex = 3;
             bReset.TabIndex = 4;
         }
     }

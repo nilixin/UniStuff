@@ -32,10 +32,10 @@ namespace v2
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tbServer = new System.Windows.Forms.TextBox();
-            this.tbUsername = new System.Windows.Forms.TextBox();
-            this.tbPassword = new System.Windows.Forms.TextBox();
-            this.bConnect = new System.Windows.Forms.Button();
+            this.tbFtpUrl = new System.Windows.Forms.TextBox();
+            this.tbFtpUsername = new System.Windows.Forms.TextBox();
+            this.tbFtpPassword = new System.Windows.Forms.TextBox();
+            this.bFtpConnect = new System.Windows.Forms.Button();
             this.bReset = new System.Windows.Forms.Button();
             this.bRemoteHome = new System.Windows.Forms.Button();
             this.bLocalHome = new System.Windows.Forms.Button();
@@ -45,7 +45,7 @@ namespace v2
             this.bUpload = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lConnectionStatus = new System.Windows.Forms.Label();
+            this.lFtpConnectionStatus = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lServer = new System.Windows.Forms.Label();
@@ -54,38 +54,40 @@ namespace v2
             this.bRemoteRefresh = new System.Windows.Forms.Button();
             this.bLocalRefresh = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.bTftpUpload = new System.Windows.Forms.Button();
+            this.bTftpDownload = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // tbServer
+            // tbFtpUrl
             // 
-            this.tbServer.Location = new System.Drawing.Point(12, 32);
-            this.tbServer.Name = "tbServer";
-            this.tbServer.Size = new System.Drawing.Size(179, 27);
-            this.tbServer.TabIndex = 0;
+            this.tbFtpUrl.Location = new System.Drawing.Point(12, 32);
+            this.tbFtpUrl.Name = "tbFtpUrl";
+            this.tbFtpUrl.Size = new System.Drawing.Size(179, 27);
+            this.tbFtpUrl.TabIndex = 0;
             // 
-            // tbUsername
+            // tbFtpUsername
             // 
-            this.tbUsername.Location = new System.Drawing.Point(197, 32);
-            this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(179, 27);
-            this.tbUsername.TabIndex = 1;
+            this.tbFtpUsername.Location = new System.Drawing.Point(197, 32);
+            this.tbFtpUsername.Name = "tbFtpUsername";
+            this.tbFtpUsername.Size = new System.Drawing.Size(179, 27);
+            this.tbFtpUsername.TabIndex = 1;
             // 
-            // tbPassword
+            // tbFtpPassword
             // 
-            this.tbPassword.Location = new System.Drawing.Point(382, 32);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.Size = new System.Drawing.Size(179, 27);
-            this.tbPassword.TabIndex = 2;
+            this.tbFtpPassword.Location = new System.Drawing.Point(382, 32);
+            this.tbFtpPassword.Name = "tbFtpPassword";
+            this.tbFtpPassword.Size = new System.Drawing.Size(179, 27);
+            this.tbFtpPassword.TabIndex = 2;
             // 
-            // bConnect
+            // bFtpConnect
             // 
-            this.bConnect.Location = new System.Drawing.Point(567, 30);
-            this.bConnect.Name = "bConnect";
-            this.bConnect.Size = new System.Drawing.Size(132, 29);
-            this.bConnect.TabIndex = 3;
-            this.bConnect.Text = "Подключиться";
-            this.bConnect.UseVisualStyleBackColor = true;
-            this.bConnect.Click += new System.EventHandler(this.bConnect_Click);
+            this.bFtpConnect.Location = new System.Drawing.Point(567, 30);
+            this.bFtpConnect.Name = "bFtpConnect";
+            this.bFtpConnect.Size = new System.Drawing.Size(132, 29);
+            this.bFtpConnect.TabIndex = 3;
+            this.bFtpConnect.Text = "Подключиться";
+            this.bFtpConnect.UseVisualStyleBackColor = true;
+            this.bFtpConnect.Click += new System.EventHandler(this.bConnect_Click);
             // 
             // bReset
             // 
@@ -99,7 +101,7 @@ namespace v2
             // 
             // bRemoteHome
             // 
-            this.bRemoteHome.Location = new System.Drawing.Point(72, 374);
+            this.bRemoteHome.Location = new System.Drawing.Point(72, 369);
             this.bRemoteHome.Name = "bRemoteHome";
             this.bRemoteHome.Size = new System.Drawing.Size(54, 29);
             this.bRemoteHome.TabIndex = 6;
@@ -109,7 +111,7 @@ namespace v2
             // 
             // bLocalHome
             // 
-            this.bLocalHome.Location = new System.Drawing.Point(808, 374);
+            this.bLocalHome.Location = new System.Drawing.Point(808, 369);
             this.bLocalHome.Name = "bLocalHome";
             this.bLocalHome.Size = new System.Drawing.Size(54, 29);
             this.bLocalHome.TabIndex = 11;
@@ -119,7 +121,7 @@ namespace v2
             // 
             // bNewRemoteFolder
             // 
-            this.bNewRemoteFolder.Location = new System.Drawing.Point(132, 374);
+            this.bNewRemoteFolder.Location = new System.Drawing.Point(132, 369);
             this.bNewRemoteFolder.Name = "bNewRemoteFolder";
             this.bNewRemoteFolder.Size = new System.Drawing.Size(54, 29);
             this.bNewRemoteFolder.TabIndex = 8;
@@ -129,7 +131,7 @@ namespace v2
             // 
             // bNewRemoteFile
             // 
-            this.bNewRemoteFile.Location = new System.Drawing.Point(192, 374);
+            this.bNewRemoteFile.Location = new System.Drawing.Point(192, 369);
             this.bNewRemoteFile.Name = "bNewRemoteFile";
             this.bNewRemoteFile.Size = new System.Drawing.Size(54, 29);
             this.bNewRemoteFile.TabIndex = 9;
@@ -139,7 +141,7 @@ namespace v2
             // 
             // bDownload
             // 
-            this.bDownload.Location = new System.Drawing.Point(410, 228);
+            this.bDownload.Location = new System.Drawing.Point(410, 140);
             this.bDownload.Name = "bDownload";
             this.bDownload.Size = new System.Drawing.Size(54, 29);
             this.bDownload.TabIndex = 7;
@@ -149,7 +151,7 @@ namespace v2
             // 
             // bUpload
             // 
-            this.bUpload.Location = new System.Drawing.Point(410, 263);
+            this.bUpload.Location = new System.Drawing.Point(410, 175);
             this.bUpload.Name = "bUpload";
             this.bUpload.Size = new System.Drawing.Size(54, 29);
             this.bUpload.TabIndex = 12;
@@ -175,19 +177,19 @@ namespace v2
             this.label2.TabIndex = 1;
             this.label2.Text = "Пароль";
             // 
-            // lConnectionStatus
+            // lFtpConnectionStatus
             // 
-            this.lConnectionStatus.AutoSize = true;
-            this.lConnectionStatus.Location = new System.Drawing.Point(12, 62);
-            this.lConnectionStatus.Name = "lConnectionStatus";
-            this.lConnectionStatus.Size = new System.Drawing.Size(128, 20);
-            this.lConnectionStatus.TabIndex = 5;
-            this.lConnectionStatus.Text = "lConnectionStatus";
+            this.lFtpConnectionStatus.AutoSize = true;
+            this.lFtpConnectionStatus.Location = new System.Drawing.Point(12, 62);
+            this.lFtpConnectionStatus.Name = "lFtpConnectionStatus";
+            this.lFtpConnectionStatus.Size = new System.Drawing.Size(149, 20);
+            this.lFtpConnectionStatus.TabIndex = 5;
+            this.lFtpConnectionStatus.Text = "lFtpConnectionStatus";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 122);
+            this.label3.Location = new System.Drawing.Point(12, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(138, 20);
             this.label3.TabIndex = 7;
@@ -196,7 +198,7 @@ namespace v2
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(470, 122);
+            this.label4.Location = new System.Drawing.Point(470, 117);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 20);
             this.label4.TabIndex = 9;
@@ -205,17 +207,18 @@ namespace v2
             // lServer
             // 
             this.lServer.AutoSize = true;
+            this.lServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lServer.Location = new System.Drawing.Point(12, 9);
             this.lServer.Name = "lServer";
-            this.lServer.Size = new System.Drawing.Size(60, 20);
+            this.lServer.Size = new System.Drawing.Size(35, 20);
             this.lServer.TabIndex = 12;
-            this.lServer.Text = "Сервер";
+            this.lServer.Text = "FTP";
             // 
             // lvRemote
             // 
             this.lvRemote.HideSelection = false;
             this.lvRemote.LabelEdit = true;
-            this.lvRemote.Location = new System.Drawing.Point(12, 145);
+            this.lvRemote.Location = new System.Drawing.Point(12, 140);
             this.lvRemote.MultiSelect = false;
             this.lvRemote.Name = "lvRemote";
             this.lvRemote.Size = new System.Drawing.Size(392, 224);
@@ -227,7 +230,7 @@ namespace v2
             // 
             this.lvLocal.HideSelection = false;
             this.lvLocal.LabelEdit = true;
-            this.lvLocal.Location = new System.Drawing.Point(470, 145);
+            this.lvLocal.Location = new System.Drawing.Point(470, 140);
             this.lvLocal.MultiSelect = false;
             this.lvLocal.Name = "lvLocal";
             this.lvLocal.Size = new System.Drawing.Size(392, 224);
@@ -237,7 +240,7 @@ namespace v2
             // 
             // bRemoteRefresh
             // 
-            this.bRemoteRefresh.Location = new System.Drawing.Point(12, 374);
+            this.bRemoteRefresh.Location = new System.Drawing.Point(12, 369);
             this.bRemoteRefresh.Name = "bRemoteRefresh";
             this.bRemoteRefresh.Size = new System.Drawing.Size(54, 29);
             this.bRemoteRefresh.TabIndex = 15;
@@ -247,7 +250,7 @@ namespace v2
             // 
             // bLocalRefresh
             // 
-            this.bLocalRefresh.Location = new System.Drawing.Point(748, 374);
+            this.bLocalRefresh.Location = new System.Drawing.Point(748, 369);
             this.bLocalRefresh.Name = "bLocalRefresh";
             this.bLocalRefresh.Size = new System.Drawing.Size(54, 29);
             this.bLocalRefresh.TabIndex = 16;
@@ -255,11 +258,33 @@ namespace v2
             this.bLocalRefresh.UseVisualStyleBackColor = true;
             this.bLocalRefresh.Click += new System.EventHandler(this.bLocalRefresh_Click);
             // 
+            // bTftpUpload
+            // 
+            this.bTftpUpload.Enabled = false;
+            this.bTftpUpload.Location = new System.Drawing.Point(410, 335);
+            this.bTftpUpload.Name = "bTftpUpload";
+            this.bTftpUpload.Size = new System.Drawing.Size(54, 29);
+            this.bTftpUpload.TabIndex = 18;
+            this.bTftpUpload.Text = "T ◀️";
+            this.bTftpUpload.UseVisualStyleBackColor = true;
+            // 
+            // bTftpDownload
+            // 
+            this.bTftpDownload.Enabled = false;
+            this.bTftpDownload.Location = new System.Drawing.Point(410, 300);
+            this.bTftpDownload.Name = "bTftpDownload";
+            this.bTftpDownload.Size = new System.Drawing.Size(54, 29);
+            this.bTftpDownload.TabIndex = 17;
+            this.bTftpDownload.Text = "T ▶️";
+            this.bTftpDownload.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 436);
+            this.ClientSize = new System.Drawing.Size(888, 419);
+            this.Controls.Add(this.bTftpUpload);
+            this.Controls.Add(this.bTftpDownload);
             this.Controls.Add(this.bLocalRefresh);
             this.Controls.Add(this.bRemoteRefresh);
             this.Controls.Add(this.bNewRemoteFile);
@@ -269,16 +294,16 @@ namespace v2
             this.Controls.Add(this.lvLocal);
             this.Controls.Add(this.lvRemote);
             this.Controls.Add(this.bReset);
-            this.Controls.Add(this.tbServer);
+            this.Controls.Add(this.tbFtpUrl);
             this.Controls.Add(this.lServer);
             this.Controls.Add(this.bUpload);
             this.Controls.Add(this.bDownload);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lConnectionStatus);
-            this.Controls.Add(this.bConnect);
-            this.Controls.Add(this.tbPassword);
-            this.Controls.Add(this.tbUsername);
+            this.Controls.Add(this.lFtpConnectionStatus);
+            this.Controls.Add(this.bFtpConnect);
+            this.Controls.Add(this.tbFtpPassword);
+            this.Controls.Add(this.tbFtpUsername);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
@@ -290,11 +315,11 @@ namespace v2
 
         #endregion
 
-        private System.Windows.Forms.TextBox tbServer;
-        private System.Windows.Forms.TextBox tbUsername;
-        private System.Windows.Forms.TextBox tbPassword;
-        private System.Windows.Forms.Button bConnect;
-        private System.Windows.Forms.Label lConnectionStatus;
+        private System.Windows.Forms.TextBox tbFtpUrl;
+        private System.Windows.Forms.TextBox tbFtpUsername;
+        private System.Windows.Forms.TextBox tbFtpPassword;
+        private System.Windows.Forms.Button bFtpConnect;
+        private System.Windows.Forms.Label lFtpConnectionStatus;
         private System.Windows.Forms.Button bDownload;
         private System.Windows.Forms.Button bUpload;
         private System.Windows.Forms.Label label1;
@@ -312,5 +337,7 @@ namespace v2
         private System.Windows.Forms.Button bRemoteRefresh;
         private System.Windows.Forms.Button bLocalRefresh;
         private ToolTip toolTip;
+        private Button bTftpUpload;
+        private Button bTftpDownload;
     }
 }
