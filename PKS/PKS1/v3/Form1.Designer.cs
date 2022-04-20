@@ -45,7 +45,7 @@
             this.tbServerIp.Name = "tbServerIp";
             this.tbServerIp.Size = new System.Drawing.Size(312, 27);
             this.tbServerIp.TabIndex = 0;
-            this.tbServerIp.Text = "192.168.0.104";
+            this.tbServerIp.Text = "192.168.0.105";
             // 
             // lServerIP
             // 
@@ -58,7 +58,7 @@
             // 
             // bDownload
             // 
-            this.bDownload.Location = new System.Drawing.Point(12, 203);
+            this.bDownload.Location = new System.Drawing.Point(12, 222);
             this.bDownload.Name = "bDownload";
             this.bDownload.Size = new System.Drawing.Size(120, 29);
             this.bDownload.TabIndex = 2;
@@ -68,7 +68,7 @@
             // 
             // bUpload
             // 
-            this.bUpload.Location = new System.Drawing.Point(204, 203);
+            this.bUpload.Location = new System.Drawing.Point(204, 222);
             this.bUpload.Name = "bUpload";
             this.bUpload.Size = new System.Drawing.Size(120, 29);
             this.bUpload.TabIndex = 3;
@@ -78,7 +78,7 @@
             // 
             // bChoose
             // 
-            this.bChoose.Location = new System.Drawing.Point(230, 153);
+            this.bChoose.Location = new System.Drawing.Point(230, 172);
             this.bChoose.Name = "bChoose";
             this.bChoose.Size = new System.Drawing.Size(94, 29);
             this.bChoose.TabIndex = 4;
@@ -89,7 +89,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 131);
+            this.label1.Location = new System.Drawing.Point(12, 150);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 20);
             this.label1.TabIndex = 6;
@@ -97,16 +97,16 @@
             // 
             // tbLocalFolder
             // 
-            this.tbLocalFolder.Location = new System.Drawing.Point(12, 154);
+            this.tbLocalFolder.Location = new System.Drawing.Point(12, 173);
             this.tbLocalFolder.Name = "tbLocalFolder";
             this.tbLocalFolder.Size = new System.Drawing.Size(212, 27);
             this.tbLocalFolder.TabIndex = 5;
-            this.tbLocalFolder.Text = "C:\\Users\\knexi\\Desktop\\fueles";
+            this.tbLocalFolder.Text = "D:\\Desktop\\files";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 78);
+            this.label2.Location = new System.Drawing.Point(12, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 20);
             this.label2.TabIndex = 8;
@@ -114,17 +114,17 @@
             // 
             // tbFileName
             // 
-            this.tbFileName.Location = new System.Drawing.Point(12, 101);
+            this.tbFileName.Location = new System.Drawing.Point(12, 120);
             this.tbFileName.Name = "tbFileName";
             this.tbFileName.Size = new System.Drawing.Size(312, 27);
             this.tbFileName.TabIndex = 7;
-            this.tbFileName.Text = "wow.txt";
+            this.tbFileName.Text = "file.txt";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 266);
+            this.ClientSize = new System.Drawing.Size(346, 272);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbFileName);
             this.Controls.Add(this.label1);
