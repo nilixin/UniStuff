@@ -1,8 +1,11 @@
+using MimeKit;
+
 namespace PKS2
 {
     public partial class Form1 : Form
     {
-        SmtpClient? smtpClient = null;
+        ProtocolLogic? SmtpClient = null;
+        string AttachedFilePath = string.Empty;
 
         public Form1()
         {
@@ -16,25 +19,30 @@ namespace PKS2
         {
             string emailAddress = string.Empty;
             string password = string.Empty;
-            string host = string.Empty;
-            int port = 0;
+            string smtpHost = string.Empty;
+            int smtpPort = 0;
+            string imapHost = string.Empty;
+            int imapPort = 0;
 
             Form2 form2 = new();
             form2.Show();
             form2.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) => {
                 emailAddress = form2.EmailAddress;
                 password = form2.Password;
-                host = form2.Host;
-                port = form2.Port;
+                smtpHost = form2.SmtpHost;
+                smtpPort = form2.SmtpPort;
+                imapHost = form2.ImapHost;
+                imapPort = form2.ImapPort;
 
                 connect();
+                retrieveInbox();
             }); // перед закрытием формы авторизации, сохранение метаданных пользователя и попытка подключения
 
             void connect()
             {
                 try
                 {
-                    smtpClient = new SmtpClient(emailAddress, password, host, port);
+                    SmtpClient = new ProtocolLogic(emailAddress, password, smtpHost, smtpPort, imapHost, imapPort);
                     lUserEmailAddress.Text = emailAddress;
                 }
                 catch (Exception ex)
@@ -42,18 +50,58 @@ namespace PKS2
                     MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            void retrieveInbox()
+            {
+                try
+                {
+                    var messages = SmtpClient.RetrieveInbox(imapHost, imapPort);
+                    
+                    foreach (var message in messages)
+                    {
+                        string line = string.Empty;
+                        line += message.Subject + " | ";
+                        line += message.Sender + " | ";
+                        line += message.Date;
+
+                        lbInboxMessages.Items.Add(line);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не удалось скачать почтовый ящик\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         // Отправка сообщения
         private void bSend_Click(object sender, EventArgs e)
         {
-            EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
-            smtpClient.Send(message);
+            if (!string.IsNullOrEmpty(AttachedFilePath)) // если пользователь добавил вложение
+            {
+                EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
+                SmtpClient.Send(message, AttachedFilePath);
+                AttachedFilePath = string.Empty;
+                lAttachmentStatus.Text = "";
+            }
+            else // если пользователь не добавлял вложение
+            {
+                EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
+                SmtpClient.Send(message);
+            }
         }
 
         private void bAttach_Click(object sender, EventArgs e)
         {
-
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.InitialDirectory = "c:\\Users";
+                
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    AttachedFilePath = ofd.FileName;
+                    lAttachmentStatus.Text = "\u2713";
+                }
+            }
         }
 
         #region Полоса меню

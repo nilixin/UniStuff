@@ -30,6 +30,8 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageSent = new System.Windows.Forms.TabPage();
+            this.lAttachmentStatus = new System.Windows.Forms.Label();
+            this.bAttach = new System.Windows.Forms.Button();
             this.bSend = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbBody = new System.Windows.Forms.TextBox();
@@ -40,6 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbSentMessages = new System.Windows.Forms.TextBox();
             this.tabPageReceived = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.bAuthorize = new System.Windows.Forms.Button();
             this.lUserEmailAddress = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -47,9 +51,12 @@
             this.настроитьИмяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bAttach = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.lbInboxMessages = new System.Windows.Forms.ListBox();
+            this.lbInboxFolders = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSent.SuspendLayout();
+            this.tabPageReceived.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,6 +74,7 @@
             // 
             // tabPageSent
             // 
+            this.tabPageSent.Controls.Add(this.lAttachmentStatus);
             this.tabPageSent.Controls.Add(this.bAttach);
             this.tabPageSent.Controls.Add(this.bSend);
             this.tabPageSent.Controls.Add(this.label4);
@@ -84,6 +92,26 @@
             this.tabPageSent.TabIndex = 0;
             this.tabPageSent.Text = "Отправленные";
             this.tabPageSent.UseVisualStyleBackColor = true;
+            // 
+            // lAttachmentStatus
+            // 
+            this.lAttachmentStatus.AutoSize = true;
+            this.lAttachmentStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lAttachmentStatus.Location = new System.Drawing.Point(614, 356);
+            this.lAttachmentStatus.Name = "lAttachmentStatus";
+            this.lAttachmentStatus.Size = new System.Drawing.Size(0, 28);
+            this.lAttachmentStatus.TabIndex = 10;
+            // 
+            // bAttach
+            // 
+            this.bAttach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bAttach.Location = new System.Drawing.Point(647, 356);
+            this.bAttach.Name = "bAttach";
+            this.bAttach.Size = new System.Drawing.Size(115, 34);
+            this.bAttach.TabIndex = 9;
+            this.bAttach.Text = "Вложить";
+            this.bAttach.UseVisualStyleBackColor = true;
+            this.bAttach.Click += new System.EventHandler(this.bAttach_Click);
             // 
             // bSend
             // 
@@ -170,6 +198,10 @@
             // 
             // tabPageReceived
             // 
+            this.tabPageReceived.Controls.Add(this.lbInboxFolders);
+            this.tabPageReceived.Controls.Add(this.lbInboxMessages);
+            this.tabPageReceived.Controls.Add(this.label6);
+            this.tabPageReceived.Controls.Add(this.label5);
             this.tabPageReceived.Location = new System.Drawing.Point(4, 29);
             this.tabPageReceived.Name = "tabPageReceived";
             this.tabPageReceived.Padding = new System.Windows.Forms.Padding(3);
@@ -177,6 +209,24 @@
             this.tabPageReceived.TabIndex = 1;
             this.tabPageReceived.Text = "Полученные";
             this.tabPageReceived.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(227, 3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Письма";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Папки";
             // 
             // bAuthorize
             // 
@@ -241,16 +291,23 @@
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
-            // bAttach
+            // lbInboxMessages
             // 
-            this.bAttach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bAttach.Location = new System.Drawing.Point(647, 356);
-            this.bAttach.Name = "bAttach";
-            this.bAttach.Size = new System.Drawing.Size(115, 34);
-            this.bAttach.TabIndex = 9;
-            this.bAttach.Text = "Вложить";
-            this.bAttach.UseVisualStyleBackColor = true;
-            this.bAttach.Click += new System.EventHandler(this.bAttach_Click);
+            this.lbInboxMessages.FormattingEnabled = true;
+            this.lbInboxMessages.ItemHeight = 20;
+            this.lbInboxMessages.Location = new System.Drawing.Point(227, 26);
+            this.lbInboxMessages.Name = "lbInboxMessages";
+            this.lbInboxMessages.Size = new System.Drawing.Size(535, 364);
+            this.lbInboxMessages.TabIndex = 5;
+            // 
+            // lbInboxFolders
+            // 
+            this.lbInboxFolders.FormattingEnabled = true;
+            this.lbInboxFolders.ItemHeight = 20;
+            this.lbInboxFolders.Location = new System.Drawing.Point(6, 26);
+            this.lbInboxFolders.Name = "lbInboxFolders";
+            this.lbInboxFolders.Size = new System.Drawing.Size(215, 364);
+            this.lbInboxFolders.TabIndex = 6;
             // 
             // Form1
             // 
@@ -268,6 +325,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPageSent.ResumeLayout(false);
             this.tabPageSent.PerformLayout();
+            this.tabPageReceived.ResumeLayout(false);
+            this.tabPageReceived.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -297,5 +356,11 @@
         private ToolStripMenuItem оПрограммеToolStripMenuItem;
         private ToolStripMenuItem настроитьИмяToolStripMenuItem;
         private Button bAttach;
+        private Label lAttachmentStatus;
+        private Label label6;
+        private Label label5;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private ListBox lbInboxFolders;
+        private ListBox lbInboxMessages;
     }
 }
