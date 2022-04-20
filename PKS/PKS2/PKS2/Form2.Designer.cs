@@ -46,7 +46,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 34);
+            this.label1.Location = new System.Drawing.Point(28, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 20);
             this.label1.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             // tbEmailAddress
             // 
-            this.tbEmailAddress.Location = new System.Drawing.Point(34, 57);
+            this.tbEmailAddress.Location = new System.Drawing.Point(28, 62);
             this.tbEmailAddress.Name = "tbEmailAddress";
             this.tbEmailAddress.Size = new System.Drawing.Size(396, 27);
             this.tbEmailAddress.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // tbPassword
             // 
-            this.tbPassword.Location = new System.Drawing.Point(34, 110);
+            this.tbPassword.Location = new System.Drawing.Point(28, 115);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(396, 27);
             this.tbPassword.TabIndex = 3;
@@ -70,7 +70,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 87);
+            this.label2.Location = new System.Drawing.Point(28, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(62, 20);
             this.label2.TabIndex = 2;
@@ -78,7 +78,7 @@
             // 
             // bConfirm
             // 
-            this.bConfirm.Location = new System.Drawing.Point(146, 263);
+            this.bConfirm.Location = new System.Drawing.Point(140, 268);
             this.bConfirm.Name = "bConfirm";
             this.bConfirm.Size = new System.Drawing.Size(171, 34);
             this.bConfirm.TabIndex = 4;
@@ -88,7 +88,7 @@
             // 
             // tbSmtpHost
             // 
-            this.tbSmtpHost.Location = new System.Drawing.Point(34, 163);
+            this.tbSmtpHost.Location = new System.Drawing.Point(28, 168);
             this.tbSmtpHost.Name = "tbSmtpHost";
             this.tbSmtpHost.Size = new System.Drawing.Size(195, 27);
             this.tbSmtpHost.TabIndex = 6;
@@ -96,7 +96,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 140);
+            this.label3.Location = new System.Drawing.Point(28, 145);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 20);
             this.label3.TabIndex = 5;
@@ -104,7 +104,7 @@
             // 
             // tbSmtpPort
             // 
-            this.tbSmtpPort.Location = new System.Drawing.Point(34, 216);
+            this.tbSmtpPort.Location = new System.Drawing.Point(28, 221);
             this.tbSmtpPort.Name = "tbSmtpPort";
             this.tbSmtpPort.Size = new System.Drawing.Size(195, 27);
             this.tbSmtpPort.TabIndex = 8;
@@ -112,7 +112,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 193);
+            this.label4.Location = new System.Drawing.Point(28, 198);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 20);
             this.label4.TabIndex = 7;
@@ -120,7 +120,7 @@
             // 
             // tbImapPort
             // 
-            this.tbImapPort.Location = new System.Drawing.Point(235, 216);
+            this.tbImapPort.Location = new System.Drawing.Point(229, 221);
             this.tbImapPort.Name = "tbImapPort";
             this.tbImapPort.Size = new System.Drawing.Size(195, 27);
             this.tbImapPort.TabIndex = 12;
@@ -128,7 +128,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(235, 193);
+            this.label5.Location = new System.Drawing.Point(229, 198);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 20);
             this.label5.TabIndex = 11;
@@ -136,7 +136,7 @@
             // 
             // tbImapHost
             // 
-            this.tbImapHost.Location = new System.Drawing.Point(235, 163);
+            this.tbImapHost.Location = new System.Drawing.Point(229, 168);
             this.tbImapHost.Name = "tbImapHost";
             this.tbImapHost.Size = new System.Drawing.Size(195, 27);
             this.tbImapHost.TabIndex = 10;
@@ -144,7 +144,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(235, 140);
+            this.label6.Location = new System.Drawing.Point(229, 145);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 20);
             this.label6.TabIndex = 9;

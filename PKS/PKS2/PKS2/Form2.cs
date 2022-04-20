@@ -12,6 +12,7 @@
         public Form2()
         {
             InitializeComponent();
+            DefineTabOrder();
         }
 
         private void bConfirm_Click(object sender, EventArgs e)
@@ -100,6 +101,17 @@
             else
                 MessageBox.Show("Приложение не знает такого провайдера электронной почты\n" +
                     "Информацию о хостах и портах можно найти на сайте провайдера электронной почты");
+        }
+
+        private void DefineTabOrder()
+        {
+            tbEmailAddress.TabIndex = 0;
+            tbPassword.TabIndex = 1;
+            tbSmtpHost.TabIndex = 2;
+            tbSmtpPort.TabIndex = 3;
+            tbImapHost.TabIndex = 4;
+            tbImapPort.TabIndex = 5;
+            bConfirm.TabIndex = 6;
         }
     }
 }

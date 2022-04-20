@@ -4,7 +4,7 @@ namespace PKS2
 {
     public partial class Form1 : Form
     {
-        ProtocolLogic? SmtpClient = null;
+        ProtocolLogic? ProtocolLogic = null;
         string AttachedFilePath = string.Empty;
 
         public Form1()
@@ -42,7 +42,7 @@ namespace PKS2
             {
                 try
                 {
-                    SmtpClient = new ProtocolLogic(emailAddress, password, smtpHost, smtpPort, imapHost, imapPort);
+                    ProtocolLogic = new ProtocolLogic(emailAddress, password, smtpHost, smtpPort, imapHost, imapPort);
                     lUserEmailAddress.Text = emailAddress;
                 }
                 catch (Exception ex)
@@ -54,7 +54,7 @@ namespace PKS2
             {
                 try
                 {
-                    var messages = SmtpClient.RetrieveInbox(imapHost, imapPort);
+                    var messages = ProtocolLogic.RetrieveInbox();
                     
                     foreach (var message in messages)
                     {
@@ -79,17 +79,18 @@ namespace PKS2
             if (!string.IsNullOrEmpty(AttachedFilePath)) // если пользователь добавил вложение
             {
                 EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
-                SmtpClient.Send(message, AttachedFilePath);
+                ProtocolLogic.Send(message, AttachedFilePath);
                 AttachedFilePath = string.Empty;
                 lAttachmentStatus.Text = "";
             }
             else // если пользователь не добавлял вложение
             {
                 EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
-                SmtpClient.Send(message);
+                ProtocolLogic.Send(message);
             }
         }
 
+        // Вложение файла в письмо
         private void bAttach_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())

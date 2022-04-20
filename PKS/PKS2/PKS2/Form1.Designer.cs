@@ -42,6 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbSentMessages = new System.Windows.Forms.TextBox();
             this.tabPageReceived = new System.Windows.Forms.TabPage();
+            this.lbInboxFolders = new System.Windows.Forms.ListBox();
+            this.lbInboxMessages = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.bAuthorize = new System.Windows.Forms.Button();
@@ -52,8 +54,6 @@
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.lbInboxMessages = new System.Windows.Forms.ListBox();
-            this.lbInboxFolders = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPageSent.SuspendLayout();
             this.tabPageReceived.SuspendLayout();
@@ -118,7 +118,7 @@
             this.bSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.bSend.Location = new System.Drawing.Point(227, 356);
             this.bSend.Name = "bSend";
-            this.bSend.Size = new System.Drawing.Size(115, 34);
+            this.bSend.Size = new System.Drawing.Size(175, 34);
             this.bSend.TabIndex = 8;
             this.bSend.Text = "Отправить";
             this.bSend.UseVisualStyleBackColor = true;
@@ -210,6 +210,24 @@
             this.tabPageReceived.Text = "Полученные";
             this.tabPageReceived.UseVisualStyleBackColor = true;
             // 
+            // lbInboxFolders
+            // 
+            this.lbInboxFolders.FormattingEnabled = true;
+            this.lbInboxFolders.ItemHeight = 20;
+            this.lbInboxFolders.Location = new System.Drawing.Point(6, 26);
+            this.lbInboxFolders.Name = "lbInboxFolders";
+            this.lbInboxFolders.Size = new System.Drawing.Size(215, 364);
+            this.lbInboxFolders.TabIndex = 6;
+            // 
+            // lbInboxMessages
+            // 
+            this.lbInboxMessages.FormattingEnabled = true;
+            this.lbInboxMessages.ItemHeight = 20;
+            this.lbInboxMessages.Location = new System.Drawing.Point(227, 26);
+            this.lbInboxMessages.Name = "lbInboxMessages";
+            this.lbInboxMessages.Size = new System.Drawing.Size(535, 364);
+            this.lbInboxMessages.TabIndex = 5;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -290,24 +308,6 @@
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
-            // 
-            // lbInboxMessages
-            // 
-            this.lbInboxMessages.FormattingEnabled = true;
-            this.lbInboxMessages.ItemHeight = 20;
-            this.lbInboxMessages.Location = new System.Drawing.Point(227, 26);
-            this.lbInboxMessages.Name = "lbInboxMessages";
-            this.lbInboxMessages.Size = new System.Drawing.Size(535, 364);
-            this.lbInboxMessages.TabIndex = 5;
-            // 
-            // lbInboxFolders
-            // 
-            this.lbInboxFolders.FormattingEnabled = true;
-            this.lbInboxFolders.ItemHeight = 20;
-            this.lbInboxFolders.Location = new System.Drawing.Point(6, 26);
-            this.lbInboxFolders.Name = "lbInboxFolders";
-            this.lbInboxFolders.Size = new System.Drawing.Size(215, 364);
-            this.lbInboxFolders.TabIndex = 6;
             // 
             // Form1
             // 

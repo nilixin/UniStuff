@@ -39,7 +39,8 @@ namespace PKS2
             }
         }
 
-        public List<MimeMessage> RetrieveInbox(string imapHost, int imapPort)
+        // Подгрузка писем
+        public List<MimeMessage> RetrieveInbox()
         {
             List<MimeMessage> messages = new List<MimeMessage>();
 
@@ -50,6 +51,7 @@ namespace PKS2
                 client.Authenticate(EmailAddress, Password);
 
                 //var folders = client.GetFolders();
+                // TODO do folders
 
                 var inbox = client.Inbox;
                 inbox.Open(FolderAccess.ReadOnly);
