@@ -48,5 +48,31 @@
 
             Close();
         }
+
+        private void tbEmailAddress_Leave(object sender, EventArgs e)
+        {
+            if (tbEmailAddress.Text.Contains("gmail"))
+            {
+                tbHost.Text = "smtp.gmail.com";
+                tbPort.Text = "587";
+                return;
+            }
+            else if (tbEmailAddress.Text.Contains("yandex"))
+            {
+                tbHost.Text = "smtp.yandex.com";
+                tbPort.Text = "465";
+                return;
+            }
+            else if (tbEmailAddress.Text.Contains("mail.ru"))
+            {
+                tbHost.Text = "smtp.mail.ru";
+                tbPort.Text = "465";
+                return;
+            }
+            else if (string.IsNullOrEmpty(tbEmailAddress.Text)) { }
+            else
+                MessageBox.Show("Приложение не знает такого провайдера электронной почты\n" +
+                    "Информацию о хосте и порте SMTP можно найти на сайте провайдера электронной почты");
+        }
     }
 }

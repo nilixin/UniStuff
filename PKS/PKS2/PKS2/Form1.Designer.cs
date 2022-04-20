@@ -44,9 +44,10 @@
             this.lUserEmailAddress = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настроитьИмяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настроитьИмяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bAttach = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageSent.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -66,6 +67,7 @@
             // 
             // tabPageSent
             // 
+            this.tabPageSent.Controls.Add(this.bAttach);
             this.tabPageSent.Controls.Add(this.bSend);
             this.tabPageSent.Controls.Add(this.label4);
             this.tabPageSent.Controls.Add(this.tbBody);
@@ -86,7 +88,7 @@
             // bSend
             // 
             this.bSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bSend.Location = new System.Drawing.Point(647, 356);
+            this.bSend.Location = new System.Drawing.Point(227, 356);
             this.bSend.Name = "bSend";
             this.bSend.Size = new System.Drawing.Size(115, 34);
             this.bSend.TabIndex = 8;
@@ -179,11 +181,11 @@
             // bAuthorize
             // 
             this.bAuthorize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bAuthorize.Location = new System.Drawing.Point(620, 31);
+            this.bAuthorize.Location = new System.Drawing.Point(649, 31);
             this.bAuthorize.Name = "bAuthorize";
-            this.bAuthorize.Size = new System.Drawing.Size(164, 34);
+            this.bAuthorize.Size = new System.Drawing.Size(135, 34);
             this.bAuthorize.TabIndex = 9;
-            this.bAuthorize.Text = "Авторизироваться";
+            this.bAuthorize.Text = "Авторизация";
             this.bAuthorize.UseVisualStyleBackColor = true;
             this.bAuthorize.Click += new System.EventHandler(this.bAuthorize_Click);
             // 
@@ -217,6 +219,13 @@
             this.параметрыToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
             this.параметрыToolStripMenuItem.Text = "Параметры";
             // 
+            // настроитьИмяToolStripMenuItem
+            // 
+            this.настроитьИмяToolStripMenuItem.Name = "настроитьИмяToolStripMenuItem";
+            this.настроитьИмяToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
+            this.настроитьИмяToolStripMenuItem.Text = "Настроить имя";
+            this.настроитьИмяToolStripMenuItem.Click += new System.EventHandler(this.настроитьИмяToolStripMenuItem_Click);
+            // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -232,12 +241,16 @@
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
-            // настроитьИмяToolStripMenuItem
+            // bAttach
             // 
-            this.настроитьИмяToolStripMenuItem.Name = "настроитьИмяToolStripMenuItem";
-            this.настроитьИмяToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.настроитьИмяToolStripMenuItem.Text = "Настроить имя";
-            this.настроитьИмяToolStripMenuItem.Click += new System.EventHandler(this.настроитьИмяToolStripMenuItem_Click);
+            this.bAttach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bAttach.Location = new System.Drawing.Point(647, 356);
+            this.bAttach.Name = "bAttach";
+            this.bAttach.Size = new System.Drawing.Size(115, 34);
+            this.bAttach.TabIndex = 9;
+            this.bAttach.Text = "Вложить";
+            this.bAttach.UseVisualStyleBackColor = true;
+            this.bAttach.Click += new System.EventHandler(this.bAttach_Click);
             // 
             // Form1
             // 
@@ -283,5 +296,6 @@
         private ToolStripMenuItem справкаToolStripMenuItem;
         private ToolStripMenuItem оПрограммеToolStripMenuItem;
         private ToolStripMenuItem настроитьИмяToolStripMenuItem;
+        private Button bAttach;
     }
 }

@@ -54,6 +54,7 @@
             this.tbEmailAddress.Name = "tbEmailAddress";
             this.tbEmailAddress.Size = new System.Drawing.Size(259, 27);
             this.tbEmailAddress.TabIndex = 1;
+            this.tbEmailAddress.Leave += new System.EventHandler(this.tbEmailAddress_Leave);
             // 
             // tbPassword
             // 

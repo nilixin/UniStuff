@@ -8,7 +8,7 @@ namespace PKS2
         {
             InitializeComponent();
 
-            lUserEmailAddress.Text = "сначала авторизируйтесь ->";
+            lUserEmailAddress.Text = "сначала авторизуйтесь ->";
         }
 
         // Авторизация в аккаунт пользователя по вводимым им метаданным
@@ -39,7 +39,7 @@ namespace PKS2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Не удалось авторизироваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -47,14 +47,14 @@ namespace PKS2
         // Отправка сообщения
         private void bSend_Click(object sender, EventArgs e)
         {
-            //Contact user = new("liskvch@gmail.com", "seyatuzhas@7");
-            //smtpClient = new SmtpClient(user);
-
             EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
             smtpClient.Send(message);
         }
 
+        private void bAttach_Click(object sender, EventArgs e)
+        {
 
+        }
 
         #region Полоса меню
         private void настроитьИмяToolStripMenuItem_Click(object sender, EventArgs e)
