@@ -4,12 +4,15 @@
     {
         public string EmailAddress = string.Empty;
         public string Password = string.Empty;
-        public string Host = string.Empty;
-        public int Port = 0;
+        public string SmtpHost = string.Empty;
+        public int SmtpPort = 0;
+        public string ImapHost = string.Empty;
+        public int ImapPort = 0;
 
         public Form2()
         {
             InitializeComponent();
+            DefineTabOrder();
         }
 
         private void bConfirm_Click(object sender, EventArgs e)
@@ -28,21 +31,39 @@
                 return;
             }
 
-            Host = tbHost.Text;
-            if (string.IsNullOrEmpty(Host))
+            SmtpHost = tbSmtpHost.Text;
+            if (string.IsNullOrEmpty(SmtpHost))
             {
-                MessageBox.Show("Поле хоста пустое");
+                MessageBox.Show("Поле SMTP хоста пустое");
                 return;
             }
 
             try
             {
-                Port = int.Parse(tbPort.Text);
+                SmtpPort = int.Parse(tbSmtpPort.Text);
             }
             catch (Exception) { }
-            if (Port == 0)
+            if (SmtpPort == 0)
             {
-                MessageBox.Show("Поле порта пустое");
+                MessageBox.Show("Поле SMTP порта пустое");
+                return;
+            }
+
+            ImapHost = tbSmtpHost.Text;
+            if (string.IsNullOrEmpty(ImapHost))
+            {
+                MessageBox.Show("Поле IMAP хоста пустое");
+                return;
+            }
+
+            try
+            {
+                ImapPort = int.Parse(tbImapPort.Text);
+            }
+            catch (Exception) { }
+            if (ImapPort == 0)
+            {
+                MessageBox.Show("Поле IMAP порта пустое");
                 return;
             }
 
@@ -53,26 +74,44 @@
         {
             if (tbEmailAddress.Text.Contains("gmail"))
             {
-                tbHost.Text = "smtp.gmail.com";
-                tbPort.Text = "587";
+                tbSmtpHost.Text = "smtp.gmail.com";
+                //tbPort.Text = "587"; // не SSL
+                tbSmtpPort.Text = "465"; // SSL
+                tbImapHost.Text = "imap.gmail.com";
+                tbImapPort.Text = "993";
                 return;
             }
             else if (tbEmailAddress.Text.Contains("yandex"))
             {
-                tbHost.Text = "smtp.yandex.com";
-                tbPort.Text = "465";
+                tbSmtpHost.Text = "smtp.yandex.com";
+                tbSmtpPort.Text = "465";
+                tbImapHost.Text = "imap.yandex.ru";
+                tbImapPort.Text = "993";
                 return;
             }
             else if (tbEmailAddress.Text.Contains("mail.ru"))
             {
-                tbHost.Text = "smtp.mail.ru";
-                tbPort.Text = "465";
+                tbSmtpHost.Text = "smtp.mail.ru";
+                tbSmtpPort.Text = "465";
+                tbImapHost.Text = "imap.mail.ru";
+                tbImapPort.Text = "993";
                 return;
             }
             else if (string.IsNullOrEmpty(tbEmailAddress.Text)) { }
             else
                 MessageBox.Show("Приложение не знает такого провайдера электронной почты\n" +
-                    "Информацию о хосте и порте SMTP можно найти на сайте провайдера электронной почты");
+                    "Информацию о хостах и портах можно найти на сайте провайдера электронной почты");
+        }
+
+        private void DefineTabOrder()
+        {
+            tbEmailAddress.TabIndex = 0;
+            tbPassword.TabIndex = 1;
+            tbSmtpHost.TabIndex = 2;
+            tbSmtpPort.TabIndex = 3;
+            tbImapHost.TabIndex = 4;
+            tbImapPort.TabIndex = 5;
+            bConfirm.TabIndex = 6;
         }
     }
 }
