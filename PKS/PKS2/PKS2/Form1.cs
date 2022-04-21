@@ -6,7 +6,7 @@ namespace PKS2
     {
         ProtocolLogic? ProtocolLogic = null;
         string AttachedFilePath = string.Empty;
-        List<MimeKit.MimeMessage> ReceivedMessages = new List<MimeKit.MimeMessage>();
+        List<MimeMessage> ReceivedMessages = new List<MimeMessage>();
 
         public Form1()
         {
@@ -35,11 +35,11 @@ namespace PKS2
                 imapHost = form2.ImapHost;
                 imapPort = form2.ImapPort;
 
-                connect();
-                retrieveInbox();
+                initialize();
+                retrieve();
             });
 
-            void connect()
+            void initialize()
             {
                 try
                 {
@@ -51,7 +51,7 @@ namespace PKS2
                     MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             } // тестирование подключения
-            void retrieveInbox()
+            void retrieve()
             {
                 try
                 {
@@ -114,17 +114,5 @@ namespace PKS2
                 form3.Show();
             }
         }
-
-        #region Полоса меню
-        private void настроитьИмяToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Программа, демонстрирующая работу протоколов для работы с электронной почтой\n\nГавриленков, ПИ-19в");
-        }
-        #endregion
     }
 }

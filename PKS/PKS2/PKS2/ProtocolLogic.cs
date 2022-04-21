@@ -1,9 +1,6 @@
-﻿using System.Net;
-using System.Text;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MailKit;
 using MimeKit;
-using MailKit.Search;
 using MailKit.Net.Imap;
 
 namespace PKS2
@@ -20,7 +17,13 @@ namespace PKS2
 
         public ProtocolLogic(string emailAddress, string password, string smtpHost, int smtpPort, string imapHost, int imapPort)
         {
-            Connect(smtpHost, smtpPort, UseSsl, emailAddress, password);
+            using (var client = new SmtpClient())
+            {
+                client.Connect(smtpHost, smtpPort, UseSsl);
+                client.Authenticate(emailAddress, password);
+                client.Disconnect(true);
+            }
+
             EmailAddress = emailAddress;
             Password = password;
             SmtpHost = smtpHost;
@@ -29,29 +32,16 @@ namespace PKS2
             ImapPort = imapPort;
         }
 
-        private void Connect(string host, int port, bool useSsl, string username, string password)
-        {
-            using (var client = new SmtpClient())
-            {
-                client.Connect(host, port, useSsl);
-                client.Authenticate(username, password);
-                client.Disconnect(true);
-            }
-        }
-
         // Подгрузка писем
-        public List<MimeKit.MimeMessage> RetrieveInbox()
+        public List<MimeMessage> RetrieveInbox()
         {
-            List<MimeKit.MimeMessage> messages = new List<MimeKit.MimeMessage>();
+            List<MimeMessage> messages = new List<MimeMessage>();
 
 
             using (var client = new ImapClient())
             {
                 client.Connect(ImapHost, ImapPort, UseSsl);
                 client.Authenticate(EmailAddress, Password);
-
-                //var folders = client.GetFolders();
-                // TODO do folders
 
                 var inbox = client.Inbox;
                 inbox.Open(FolderAccess.ReadOnly);
@@ -71,7 +61,7 @@ namespace PKS2
         // Отправка письма БЕЗ ВЛОЖЕНИЯ
         public void Send(SentMessage emailMessage)
         {
-            var message = new MimeKit.MimeMessage();
+            var message = new MimeMessage();
             message.From.Add(new MailboxAddress(EmailAddress, EmailAddress));
             message.To.Add(new MailboxAddress(emailMessage.DestinationAddress, emailMessage.DestinationAddress));
             message.Subject = emailMessage.Subject;
@@ -100,7 +90,7 @@ namespace PKS2
         // Отправка письма С ВЛОЖЕНИЕМ
         public void Send(SentMessage emailMessage, string attachedFilePath)
         {
-            var message = new MimeKit.MimeMessage();
+            var message = new MimeMessage();
             message.From.Add(new MailboxAddress(EmailAddress, EmailAddress));
             message.To.Add(new MailboxAddress(emailMessage.DestinationAddress, emailMessage.DestinationAddress));
             message.Subject = emailMessage.Subject;
@@ -110,7 +100,7 @@ namespace PKS2
             builder.Attachments.Add(attachedFilePath);
             message.Body = builder.ToMessageBody();
 
-            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            using (var client = new SmtpClient())
             {
                 client.Connect(SmtpHost, SmtpPort, UseSsl);
                 client.Authenticate(EmailAddress, Password);

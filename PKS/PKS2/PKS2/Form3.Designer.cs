@@ -33,12 +33,14 @@
             this.tbSubject = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.rtbBody = new System.Windows.Forms.RichTextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvAttachments = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lInfo = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.wvBody = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.tbBody = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wvBody)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -82,41 +84,34 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Вложенные файлы";
             // 
-            // rtbBody
+            // lvAttachments
             // 
-            this.rtbBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbBody.Location = new System.Drawing.Point(327, 12);
-            this.rtbBody.Name = "rtbBody";
-            this.rtbBody.Size = new System.Drawing.Size(671, 704);
-            this.rtbBody.TabIndex = 7;
-            this.rtbBody.Text = "";
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(12, 570);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(298, 146);
-            this.listView1.TabIndex = 8;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Tile;
+            this.lvAttachments.Location = new System.Drawing.Point(12, 570);
+            this.lvAttachments.Name = "lvAttachments";
+            this.lvAttachments.Size = new System.Drawing.Size(298, 146);
+            this.lvAttachments.TabIndex = 8;
+            this.lvAttachments.UseCompatibleStateImageBehavior = false;
+            this.lvAttachments.View = System.Windows.Forms.View.Tile;
+            this.lvAttachments.Click += new System.EventHandler(this.lvAttachments_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.lInfo);
             this.panel1.Location = new System.Drawing.Point(12, 138);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(298, 406);
             this.panel1.TabIndex = 9;
             // 
-            // label6
+            // lInfo
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 20);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "инфа";
+            this.lInfo.AutoSize = true;
+            this.lInfo.Location = new System.Drawing.Point(3, 7);
+            this.lInfo.MaximumSize = new System.Drawing.Size(300, 400);
+            this.lInfo.Name = "lInfo";
+            this.lInfo.Size = new System.Drawing.Size(39, 20);
+            this.lInfo.TabIndex = 11;
+            this.lInfo.Text = "NaN";
             // 
             // label5
             // 
@@ -127,15 +122,36 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Свойства";
             // 
+            // wvBody
+            // 
+            this.wvBody.AllowExternalDrop = true;
+            this.wvBody.CreationProperties = null;
+            this.wvBody.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.wvBody.Location = new System.Drawing.Point(316, 12);
+            this.wvBody.Name = "wvBody";
+            this.wvBody.Size = new System.Drawing.Size(687, 704);
+            this.wvBody.TabIndex = 11;
+            this.wvBody.ZoomFactor = 1D;
+            // 
+            // tbBody
+            // 
+            this.tbBody.Location = new System.Drawing.Point(316, 12);
+            this.tbBody.Multiline = true;
+            this.tbBody.Name = "tbBody";
+            this.tbBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbBody.Size = new System.Drawing.Size(687, 704);
+            this.tbBody.TabIndex = 12;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1015, 728);
+            this.Controls.Add(this.tbBody);
+            this.Controls.Add(this.wvBody);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.listView1);
-            this.Controls.Add(this.rtbBody);
+            this.Controls.Add(this.lvAttachments);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbSubject);
             this.Controls.Add(this.label2);
@@ -143,8 +159,10 @@
             this.Controls.Add(this.label1);
             this.Name = "Form3";
             this.Text = "Form3";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wvBody)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,10 +175,11 @@
         private TextBox tbSubject;
         private Label label2;
         private Label label4;
-        private RichTextBox rtbBody;
-        private ListView listView1;
+        private ListView lvAttachments;
         private Panel panel1;
-        private Label label6;
+        private Label lInfo;
         private Label label5;
+        private Microsoft.Web.WebView2.WinForms.WebView2 wvBody;
+        private TextBox tbBody;
     }
 }
