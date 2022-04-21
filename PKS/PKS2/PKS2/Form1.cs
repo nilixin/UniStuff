@@ -6,6 +6,7 @@ namespace PKS2
     {
         ProtocolLogic? ProtocolLogic = null;
         string AttachedFilePath = string.Empty;
+        List<MimeKit.MimeMessage> ReceivedMessages = new List<MimeKit.MimeMessage>();
 
         public Form1()
         {
@@ -36,7 +37,7 @@ namespace PKS2
 
                 connect();
                 retrieveInbox();
-            }); // перед закрытием формы авторизации, сохранение метаданных пользовател€ и попытка подключени€
+            });
 
             void connect()
             {
@@ -49,28 +50,24 @@ namespace PKS2
                 {
                     MessageBox.Show("Ќе удалось авторизоватьс€\n" + ex.Message, "ќшибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            } // тестирование подключени€
             void retrieveInbox()
             {
                 try
                 {
-                    var messages = ProtocolLogic.RetrieveInbox();
-                    
-                    foreach (var message in messages)
-                    {
-                        string line = string.Empty;
-                        line += message.Subject + " | ";
-                        line += message.Sender + " | ";
-                        line += message.Date;
+                    ReceivedMessages = ProtocolLogic.RetrieveInbox();
 
-                        lbInboxMessages.Items.Add(line);
+                    for (int i = 0; i < ReceivedMessages.Count; i++)
+                    {
+                        // обновление dgvInboxMessages
+                        dgvInboxMessages.Rows.Add(ReceivedMessages[i].From, ReceivedMessages[i].Date, ReceivedMessages[i].Subject);
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Ќе удалось скачать почтовый €щик\n" + ex.Message, "ќшибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            } // сохранение писем и их отображение в dgvInboxMessages
         }
 
         // ќтправка сообщени€
@@ -78,14 +75,14 @@ namespace PKS2
         {
             if (!string.IsNullOrEmpty(AttachedFilePath)) // если пользователь добавил вложение
             {
-                EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
+                SentMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
                 ProtocolLogic.Send(message, AttachedFilePath);
                 AttachedFilePath = string.Empty;
                 lAttachmentStatus.Text = "";
             }
             else // если пользователь не добавл€л вложение
             {
-                EmailMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
+                SentMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
                 ProtocolLogic.Send(message);
             }
         }
@@ -102,6 +99,19 @@ namespace PKS2
                     AttachedFilePath = ofd.FileName;
                     lAttachmentStatus.Text = "\u2713";
                 }
+            }
+        }
+
+        // ¬ыбор сообщение пользователем, последующее открытие формы сообщени€
+        private void dgvInboxMessages_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                dgvInboxMessages.ClearSelection();
+                dgvInboxMessages.Rows[e.RowIndex].Selected = true;
+
+                var form3 = new Form3(ReceivedMessages[e.RowIndex]);
+                form3.Show();
             }
         }
 

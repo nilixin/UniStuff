@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbSourceAddress = new System.Windows.Forms.TextBox();
+            this.tbSubject = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbBody = new System.Windows.Forms.RichTextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,19 +50,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Отправитель";
             // 
-            // textBox1
+            // tbSourceAddress
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(298, 27);
-            this.textBox1.TabIndex = 1;
+            this.tbSourceAddress.Location = new System.Drawing.Point(12, 32);
+            this.tbSourceAddress.Name = "tbSourceAddress";
+            this.tbSourceAddress.Size = new System.Drawing.Size(298, 27);
+            this.tbSourceAddress.TabIndex = 1;
             // 
-            // textBox2
+            // tbSubject
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 85);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(298, 27);
-            this.textBox2.TabIndex = 3;
+            this.tbSubject.Location = new System.Drawing.Point(12, 85);
+            this.tbSubject.Name = "tbSubject";
+            this.tbSubject.Size = new System.Drawing.Size(298, 27);
+            this.tbSubject.TabIndex = 3;
             // 
             // label2
             // 
@@ -82,14 +82,14 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Вложенные файлы";
             // 
-            // richTextBox1
+            // rtbBody
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.Location = new System.Drawing.Point(327, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(671, 704);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
+            this.rtbBody.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtbBody.Location = new System.Drawing.Point(327, 12);
+            this.rtbBody.Name = "rtbBody";
+            this.rtbBody.Size = new System.Drawing.Size(671, 704);
+            this.rtbBody.TabIndex = 7;
+            this.rtbBody.Text = "";
             // 
             // listView1
             // 
@@ -109,15 +109,6 @@
             this.panel1.Size = new System.Drawing.Size(298, 406);
             this.panel1.TabIndex = 9;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 115);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 20);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Свойства";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -127,6 +118,15 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "инфа";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 115);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 20);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Свойства";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -135,11 +135,11 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtbBody);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbSubject);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbSourceAddress);
             this.Controls.Add(this.label1);
             this.Name = "Form3";
             this.Text = "Form3";
@@ -153,11 +153,11 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox tbSourceAddress;
+        private TextBox tbSubject;
         private Label label2;
         private Label label4;
-        private RichTextBox richTextBox1;
+        private RichTextBox rtbBody;
         private ListView listView1;
         private Panel panel1;
         private Label label6;

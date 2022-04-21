@@ -42,8 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbSentMessages = new System.Windows.Forms.TextBox();
             this.tabPageReceived = new System.Windows.Forms.TabPage();
+            this.dgvInboxMessages = new System.Windows.Forms.DataGridView();
             this.lbInboxFolders = new System.Windows.Forms.ListBox();
-            this.lbInboxMessages = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.bAuthorize = new System.Windows.Forms.Button();
@@ -54,16 +54,21 @@
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.ColumnFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPageSent.SuspendLayout();
             this.tabPageReceived.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInboxMessages)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageSent);
             this.tabControl1.Controls.Add(this.tabPageReceived);
             this.tabControl1.Location = new System.Drawing.Point(12, 79);
@@ -115,7 +120,7 @@
             // 
             // bSend
             // 
-            this.bSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.bSend.Location = new System.Drawing.Point(227, 356);
             this.bSend.Name = "bSend";
             this.bSend.Size = new System.Drawing.Size(175, 34);
@@ -135,8 +140,9 @@
             // 
             // tbBody
             // 
-            this.tbBody.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbBody.Location = new System.Drawing.Point(227, 132);
             this.tbBody.Multiline = true;
             this.tbBody.Name = "tbBody";
@@ -155,6 +161,8 @@
             // 
             // tbSubject
             // 
+            this.tbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSubject.Location = new System.Drawing.Point(227, 79);
             this.tbSubject.Name = "tbSubject";
             this.tbSubject.Size = new System.Drawing.Size(535, 27);
@@ -171,6 +179,8 @@
             // 
             // tbRecipientAddress
             // 
+            this.tbRecipientAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbRecipientAddress.Location = new System.Drawing.Point(227, 26);
             this.tbRecipientAddress.Name = "tbRecipientAddress";
             this.tbRecipientAddress.Size = new System.Drawing.Size(535, 27);
@@ -198,8 +208,8 @@
             // 
             // tabPageReceived
             // 
+            this.tabPageReceived.Controls.Add(this.dgvInboxMessages);
             this.tabPageReceived.Controls.Add(this.lbInboxFolders);
-            this.tabPageReceived.Controls.Add(this.lbInboxMessages);
             this.tabPageReceived.Controls.Add(this.label6);
             this.tabPageReceived.Controls.Add(this.label5);
             this.tabPageReceived.Location = new System.Drawing.Point(4, 29);
@@ -210,23 +220,35 @@
             this.tabPageReceived.Text = "Полученные";
             this.tabPageReceived.UseVisualStyleBackColor = true;
             // 
+            // dgvInboxMessages
+            // 
+            this.dgvInboxMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvInboxMessages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInboxMessages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnFrom,
+            this.ColumnDate,
+            this.ColumnSubject});
+            this.dgvInboxMessages.Location = new System.Drawing.Point(227, 26);
+            this.dgvInboxMessages.MultiSelect = false;
+            this.dgvInboxMessages.Name = "dgvInboxMessages";
+            this.dgvInboxMessages.RowHeadersWidth = 51;
+            this.dgvInboxMessages.RowTemplate.Height = 29;
+            this.dgvInboxMessages.Size = new System.Drawing.Size(535, 364);
+            this.dgvInboxMessages.TabIndex = 7;
+            this.dgvInboxMessages.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInboxMessages_CellClick);
+            // 
             // lbInboxFolders
             // 
+            this.lbInboxFolders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbInboxFolders.FormattingEnabled = true;
             this.lbInboxFolders.ItemHeight = 20;
             this.lbInboxFolders.Location = new System.Drawing.Point(6, 26);
             this.lbInboxFolders.Name = "lbInboxFolders";
             this.lbInboxFolders.Size = new System.Drawing.Size(215, 364);
             this.lbInboxFolders.TabIndex = 6;
-            // 
-            // lbInboxMessages
-            // 
-            this.lbInboxMessages.FormattingEnabled = true;
-            this.lbInboxMessages.ItemHeight = 20;
-            this.lbInboxMessages.Location = new System.Drawing.Point(227, 26);
-            this.lbInboxMessages.Name = "lbInboxMessages";
-            this.lbInboxMessages.Size = new System.Drawing.Size(535, 364);
-            this.lbInboxMessages.TabIndex = 5;
             // 
             // label6
             // 
@@ -309,6 +331,27 @@
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
+            // ColumnFrom
+            // 
+            this.ColumnFrom.HeaderText = "Отправитель";
+            this.ColumnFrom.MinimumWidth = 6;
+            this.ColumnFrom.Name = "ColumnFrom";
+            this.ColumnFrom.Width = 125;
+            // 
+            // ColumnDate
+            // 
+            this.ColumnDate.HeaderText = "Дата";
+            this.ColumnDate.MinimumWidth = 6;
+            this.ColumnDate.Name = "ColumnDate";
+            this.ColumnDate.Width = 125;
+            // 
+            // ColumnSubject
+            // 
+            this.ColumnSubject.HeaderText = "Тема";
+            this.ColumnSubject.MinimumWidth = 6;
+            this.ColumnSubject.Name = "ColumnSubject";
+            this.ColumnSubject.Width = 125;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -327,6 +370,7 @@
             this.tabPageSent.PerformLayout();
             this.tabPageReceived.ResumeLayout(false);
             this.tabPageReceived.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInboxMessages)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -361,6 +405,9 @@
         private Label label5;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private ListBox lbInboxFolders;
-        private ListBox lbInboxMessages;
+        private DataGridView dgvInboxMessages;
+        private DataGridViewTextBoxColumn ColumnFrom;
+        private DataGridViewTextBoxColumn ColumnDate;
+        private DataGridViewTextBoxColumn ColumnSubject;
     }
 }

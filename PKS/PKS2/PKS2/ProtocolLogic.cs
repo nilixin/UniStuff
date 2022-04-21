@@ -40,9 +40,9 @@ namespace PKS2
         }
 
         // Подгрузка писем
-        public List<MimeMessage> RetrieveInbox()
+        public List<MimeKit.MimeMessage> RetrieveInbox()
         {
-            List<MimeMessage> messages = new List<MimeMessage>();
+            List<MimeKit.MimeMessage> messages = new List<MimeKit.MimeMessage>();
 
 
             using (var client = new ImapClient())
@@ -69,18 +69,18 @@ namespace PKS2
         }
 
         // Отправка письма БЕЗ ВЛОЖЕНИЯ
-        public void Send(EmailMessage emailMessage)
+        public void Send(SentMessage emailMessage)
         {
-            var message = new MimeMessage();
+            var message = new MimeKit.MimeMessage();
             message.From.Add(new MailboxAddress(EmailAddress, EmailAddress));
-            message.To.Add(new MailboxAddress(emailMessage.RecipientAddress, emailMessage.RecipientAddress));
+            message.To.Add(new MailboxAddress(emailMessage.DestinationAddress, emailMessage.DestinationAddress));
             message.Subject = emailMessage.Subject;
             message.Body = new TextPart("plain")
             {
                 Text = emailMessage.Body
             };
 
-            using (var client = new MailKit.Net.Smtp.SmtpClient())
+            using (var client = new SmtpClient())
             {
                 client.Connect(SmtpHost, SmtpPort, UseSsl);
                 client.Authenticate(EmailAddress, Password);
@@ -98,11 +98,11 @@ namespace PKS2
         }
 
         // Отправка письма С ВЛОЖЕНИЕМ
-        public void Send(EmailMessage emailMessage, string attachedFilePath)
+        public void Send(SentMessage emailMessage, string attachedFilePath)
         {
-            var message = new MimeMessage();
+            var message = new MimeKit.MimeMessage();
             message.From.Add(new MailboxAddress(EmailAddress, EmailAddress));
-            message.To.Add(new MailboxAddress(emailMessage.RecipientAddress, emailMessage.RecipientAddress));
+            message.To.Add(new MailboxAddress(emailMessage.DestinationAddress, emailMessage.DestinationAddress));
             message.Subject = emailMessage.Subject;
 
             var builder = new BodyBuilder();
