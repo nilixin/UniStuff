@@ -28,7 +28,7 @@ namespace PKS2
                 if (!string.IsNullOrEmpty(message.HtmlBody))
                 {
                     tbBody.Hide();
-                    InitBrowser(message.HtmlBody);
+                    InitBrowserAsync(message.HtmlBody);
                 }
                 else
                 {
@@ -76,7 +76,7 @@ namespace PKS2
             }
         }
 
-        public async void InitBrowser(string htmlContent)
+        public async void InitBrowserAsync(string htmlContent)
         {
             await EnsureCoreWebView2Async();
             wvBody.NavigateToString(htmlContent);

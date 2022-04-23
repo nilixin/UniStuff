@@ -55,9 +55,9 @@ namespace PKS2
             {
                 try
                 {
-                    ReceivedMessages = ProtocolLogic.RetrieveInbox();
+                    ReceivedMessages = ProtocolLogic?.RetrieveInbox();
 
-                    for (int i = 0; i < ReceivedMessages.Count; i++)
+                    for (int i = 0; i < ReceivedMessages?.Count; i++)
                     {
                         // обновление dgvInboxMessages
                         dgvInboxMessages.Rows.Add(ReceivedMessages[i].From, ReceivedMessages[i].Date, ReceivedMessages[i].Subject);
