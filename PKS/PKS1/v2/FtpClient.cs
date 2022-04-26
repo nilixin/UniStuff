@@ -52,20 +52,12 @@ namespace v2
                 downloadRequest.Method = WebRequestMethods.Ftp.DownloadFile;
                 downloadRequest.Credentials = new NetworkCredential(username, password);
 
-                Stream responseStream = downloadRequest.GetResponse().GetResponseStream();
-                FileStream fileStream = new FileStream(destinationPath, FileMode.Create);
+                FtpWebResponse response = (FtpWebResponse)downloadRequest.GetResponse();
 
+                Stream responseStream = response.GetResponseStream();
                 StreamReader reader = new StreamReader(responseStream);
-                byte[] buffer = new byte[1024];
-                int byteRead;
-                do
-                {
-                    byteRead = responseStream.Read(buffer, 0, buffer.Length);
-                } while (byteRead != 0);
-
-                reader.Close();
-                responseStream.Close();
-                fileStream.Close();
+                var text = reader.ReadToEnd();
+                File.WriteAllText(destinationPath, text);
 
                 return true;
             }

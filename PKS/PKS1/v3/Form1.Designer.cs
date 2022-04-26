@@ -101,7 +101,7 @@
             this.tbLocalFolder.Name = "tbLocalFolder";
             this.tbLocalFolder.Size = new System.Drawing.Size(212, 27);
             this.tbLocalFolder.TabIndex = 5;
-            this.tbLocalFolder.Text = "D:\\Desktop\\files";
+            this.tbLocalFolder.Text = "C:\\Users\\knexit\\Misc\\files";
             // 
             // label2
             // 
