@@ -1,6 +1,6 @@
 ﻿namespace PKS2
 {
-    partial class Form3
+    partial class MessageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -142,7 +142,7 @@
             this.tbBody.Size = new System.Drawing.Size(687, 704);
             this.tbBody.TabIndex = 12;
             // 
-            // Form3
+            // MessageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -157,8 +157,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbSourceAddress);
             this.Controls.Add(this.label1);
-            this.Name = "Form3";
-            this.Text = "Form3";
+            this.Name = "MessageForm";
+            this.Text = "MessageForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

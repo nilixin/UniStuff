@@ -3,11 +3,11 @@ using Syroot.Windows.IO;
 
 namespace PKS2
 {
-    public partial class Form3 : Form
+    public partial class MessageForm : Form
     {
         string DownloadedAttachmentsDirectory = KnownFolders.Downloads.Path + "\\PKS2 Attachments";
 
-        public Form3(MimeMessage message)
+        public MessageForm(MimeMessage message)
         {
             InitializeComponent();
 

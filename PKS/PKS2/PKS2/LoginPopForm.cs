@@ -1,15 +1,15 @@
 ﻿namespace PKS2
 {
-    public partial class Form2 : Form
+    public partial class LoginPopForm : Form
     {
         public string EmailAddress = string.Empty;
         public string Password = string.Empty;
         public string SmtpHost = string.Empty;
         public int SmtpPort = 0;
-        public string ImapHost = string.Empty;
-        public int ImapPort = 0;
+        public string Pop3Host = string.Empty;
+        public int Pop3Port = 0;
 
-        public Form2()
+        public LoginPopForm()
         {
             InitializeComponent();
             DefineTabOrder();
@@ -49,21 +49,21 @@
                 return;
             }
 
-            ImapHost = tbSmtpHost.Text;
-            if (string.IsNullOrEmpty(ImapHost))
+            Pop3Host = tbPop3Host.Text;
+            if (string.IsNullOrEmpty(Pop3Host))
             {
-                MessageBox.Show("Поле IMAP хоста пустое");
+                MessageBox.Show("Поле POP3 хоста пустое");
                 return;
             }
 
             try
             {
-                ImapPort = int.Parse(tbImapPort.Text);
+                Pop3Port = int.Parse(tbPop3Port.Text);
             }
             catch (Exception) { }
-            if (ImapPort == 0)
+            if (Pop3Port == 0)
             {
-                MessageBox.Show("Поле IMAP порта пустое");
+                MessageBox.Show("Поле POP3 порта пустое");
                 return;
             }
 
@@ -77,24 +77,24 @@
                 tbSmtpHost.Text = "smtp.gmail.com";
                 //tbPort.Text = "587"; // не SSL
                 tbSmtpPort.Text = "465"; // SSL
-                tbImapHost.Text = "imap.gmail.com";
-                tbImapPort.Text = "993";
+                tbPop3Host.Text = "pop.gmail.com";
+                tbPop3Port.Text = "995";
                 return;
             }
             else if (tbEmailAddress.Text.Contains("yandex"))
             {
                 tbSmtpHost.Text = "smtp.yandex.com";
                 tbSmtpPort.Text = "465";
-                tbImapHost.Text = "imap.yandex.ru";
-                tbImapPort.Text = "993";
+                tbPop3Host.Text = "pop.yandex.ru";
+                tbPop3Port.Text = "995";
                 return;
             }
             else if (tbEmailAddress.Text.Contains("mail.ru"))
             {
                 tbSmtpHost.Text = "smtp.mail.ru";
                 tbSmtpPort.Text = "465";
-                tbImapHost.Text = "imap.mail.ru";
-                tbImapPort.Text = "993";
+                tbPop3Host.Text = "pop.mail.ru";
+                tbPop3Port.Text = "995";
                 return;
             }
             else if (string.IsNullOrEmpty(tbEmailAddress.Text)) { }
@@ -109,8 +109,8 @@
             tbPassword.TabIndex = 1;
             tbSmtpHost.TabIndex = 2;
             tbSmtpPort.TabIndex = 3;
-            tbImapHost.TabIndex = 4;
-            tbImapPort.TabIndex = 5;
+            tbPop3Host.TabIndex = 4;
+            tbPop3Port.TabIndex = 5;
             bConfirm.TabIndex = 6;
         }
     }

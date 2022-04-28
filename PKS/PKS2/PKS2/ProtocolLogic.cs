@@ -2,6 +2,8 @@
 using MailKit;
 using MimeKit;
 using MailKit.Net.Imap;
+using MailKit.Net.Pop3;
+using Syroot.Windows.IO;
 
 namespace PKS2
 {
@@ -13,9 +15,18 @@ namespace PKS2
         int SmtpPort = 0;
         string ImapHost = string.Empty;
         int ImapPort = 0;
+        string Pop3Host = string.Empty;
+        int Pop3Port = 0;
         const bool UseSsl = true;
 
-        public ProtocolLogic(string emailAddress, string password, string smtpHost, int smtpPort, string imapHost, int imapPort)
+        public string DownloadedMessagesDirectory = KnownFolders.Downloads.Path + "\\PKS2 Pop3Messages";
+
+        public void Initialize(string emailAddress,
+            string password,
+            string smtpHost,
+            int smtpPort,
+            string imapHost,
+            int imapPort)
         {
             using (var client = new SmtpClient())
             {
@@ -32,10 +43,32 @@ namespace PKS2
             ImapPort = imapPort;
         }
 
+        public void InitializePop(string emailAddress,
+            string password,
+            string smtpHost,
+            int smtpPort,
+            string pop3Host,
+            int pop3Port)
+        {
+            using (var client = new Pop3Client())
+            {
+                client.Connect(pop3Host, pop3Port, UseSsl);
+                client.Authenticate(emailAddress, password);
+                client.Disconnect(true);
+            }
+
+            EmailAddress = emailAddress;
+            Password = password;
+            SmtpHost = smtpHost;
+            SmtpPort = smtpPort;
+            Pop3Host = pop3Host;
+            Pop3Port = pop3Port;
+        }
+
         // Подгрузка писем
         public List<MimeMessage> RetrieveInbox()
         {
-            List<MimeMessage> messages = new List<MimeMessage>();
+            List<MimeMessage> messages = new();
 
 
             using (var client = new ImapClient())
@@ -56,6 +89,30 @@ namespace PKS2
             }
 
             return messages;
+        }
+
+        // Загрузка писем с помощью протокола POP3
+        public void DownloadInboxPop()
+        {
+            using (var client = new Pop3Client())
+            {
+                client.Connect(Pop3Host, Pop3Port, UseSsl);
+                client.Authenticate(EmailAddress, Password);
+                var count = client.GetMessageCount();
+
+                if (count > 0) // если клиент вернул хотя бы одно сообщение и не существует папки загрузки сообщений, то создать её
+                    if (!Directory.Exists(DownloadedMessagesDirectory))
+                        Directory.CreateDirectory(DownloadedMessagesDirectory);
+
+                for (int i = 0; i < client.GetMessageCount(); i++)
+                {
+                    var message = client.GetMessage(i);
+
+                    message.WriteTo(string.Format("{0}\\{1}.msg", DownloadedMessagesDirectory, i));
+                }
+
+                client.Disconnect(true);
+            }
         }
 
         // Отправка письма БЕЗ ВЛОЖЕНИЯ

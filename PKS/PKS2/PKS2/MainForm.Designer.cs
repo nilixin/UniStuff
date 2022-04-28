@@ -1,6 +1,6 @@
 ﻿namespace PKS2
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -48,6 +48,7 @@
             this.bAuthorize = new System.Windows.Forms.Button();
             this.lUserEmailAddress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.bAuthorizePop = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageSent.SuspendLayout();
             this.tabPageReceived.SuspendLayout();
@@ -181,7 +182,7 @@
             this.tabPageReceived.Location = new System.Drawing.Point(4, 29);
             this.tabPageReceived.Name = "tabPageReceived";
             this.tabPageReceived.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReceived.Size = new System.Drawing.Size(768, 396);
+            this.tabPageReceived.Size = new System.Drawing.Size(768, 423);
             this.tabPageReceived.TabIndex = 1;
             this.tabPageReceived.Text = "Полученные";
             this.tabPageReceived.UseVisualStyleBackColor = true;
@@ -238,11 +239,11 @@
             // bAuthorize
             // 
             this.bAuthorize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bAuthorize.Location = new System.Drawing.Point(649, 12);
+            this.bAuthorize.Location = new System.Drawing.Point(342, 12);
             this.bAuthorize.Name = "bAuthorize";
-            this.bAuthorize.Size = new System.Drawing.Size(135, 34);
+            this.bAuthorize.Size = new System.Drawing.Size(220, 34);
             this.bAuthorize.TabIndex = 9;
-            this.bAuthorize.Text = "Авторизация";
+            this.bAuthorize.Text = "Авторизация (SMTP/IMAP)";
             this.bAuthorize.UseVisualStyleBackColor = true;
             this.bAuthorize.Click += new System.EventHandler(this.bAuthorize_Click);
             // 
@@ -256,17 +257,29 @@
             this.lUserEmailAddress.TabIndex = 9;
             this.lUserEmailAddress.Text = "NaN";
             // 
-            // Form1
+            // bAuthorizePop
+            // 
+            this.bAuthorizePop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bAuthorizePop.Location = new System.Drawing.Point(568, 12);
+            this.bAuthorizePop.Name = "bAuthorizePop";
+            this.bAuthorizePop.Size = new System.Drawing.Size(220, 34);
+            this.bAuthorizePop.TabIndex = 10;
+            this.bAuthorizePop.Text = "Авторизация (POP3)";
+            this.bAuthorizePop.UseVisualStyleBackColor = true;
+            this.bAuthorizePop.Click += new System.EventHandler(this.bAuthorizePop_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 515);
+            this.Controls.Add(this.bAuthorizePop);
             this.Controls.Add(this.lUserEmailAddress);
             this.Controls.Add(this.bAuthorize);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(818, 492);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "MainForm";
+            this.Text = "MainForm";
             this.tabControl1.ResumeLayout(false);
             this.tabPageSent.ResumeLayout(false);
             this.tabPageSent.PerformLayout();
@@ -300,5 +313,6 @@
         private DataGridViewTextBoxColumn ColumnFrom;
         private DataGridViewTextBoxColumn ColumnDate;
         private DataGridViewTextBoxColumn ColumnSubject;
+        private Button bAuthorizePop;
     }
 }
