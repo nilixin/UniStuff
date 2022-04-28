@@ -1,55 +1,49 @@
 ﻿using MimeKit;
-using Syroot.Windows.IO;
+using System.Diagnostics;
 
 namespace PKS2
 {
     public partial class MessageForm : Form
     {
-        string DownloadedAttachmentsDirectory = KnownFolders.Downloads.Path + "\\PKS2 Attachments";
-
-        public MessageForm(MimeMessage message)
+        public MessageForm(MimeMessage mimeMessage)
         {
             InitializeComponent();
 
             try
             {
-                Text = message.From.ToString() + " " + message.Subject;
+                Text = $"{mimeMessage.From} {mimeMessage.Subject}";
 
-                lInfo.Text = "Subject: " + message.Subject + "\n";
-                lInfo.Text += "Cc: " + message.Cc.ToString() + "\n";
-                lInfo.Text += "Bcc: " + message.Bcc.ToString() + "\n";
-                lInfo.Text += "BodyParts: " + message.BodyParts.ToString() + "\n";
-                lInfo.Text += "Headers: " + message.Headers.ToString() + "\n";
+                tbProperties.Text += $"Headers:\r\n{mimeMessage.Headers}\r\n";
 
-                tbSourceAddress.Text = message.From.ToString();
-                tbSubject.Text = message.Subject;
+                tbFrom.Text = mimeMessage.From.ToString();
+                tbSubject.Text = mimeMessage.Subject;
 
                 // Если письмо содержит html-текст, то для его отображения в wvBody скрывается tbBody
-                if (!string.IsNullOrEmpty(message.HtmlBody))
+                if (!string.IsNullOrEmpty(mimeMessage.HtmlBody))
                 {
-                    tbBody.Hide();
-                    InitBrowserAsync(message.HtmlBody);
+                    InitBrowserAsync(mimeMessage.HtmlBody);
                 }
                 else
                 {
-                    tbBody.Text = message.TextBody;
+                    wvBody.Hide();
+                    tbBody.Text = mimeMessage.TextBody;
                 }
 
                 // Если в письме содержатся вложенные файлы и если не существует папки для их загрузки, она создаётся в папке Загрузки
-                if (message.Attachments != null)
-                    if (!Directory.Exists(DownloadedAttachmentsDirectory))
-                        Directory.CreateDirectory(DownloadedAttachmentsDirectory);
+                if (mimeMessage.Attachments != null)
+                    if (!Directory.Exists(Constants.ReceivedAttachmentsDirectory))
+                        Directory.CreateDirectory(Constants.ReceivedAttachmentsDirectory);
 
-                // Отображение вложений в lvAttachments и их скачивание в DownloadedAttachmentsDirectory
-                foreach (var attachment in message.Attachments)
+                // Отображение вложений в lvPinned и их скачивание в DownloadedAttachmentsDirectory
+                foreach (var attachment in mimeMessage.Attachments)
                 {
                     if (attachment is MessagePart)
                     {
                         var fileName = attachment.ContentDisposition?.FileName;
 
-                        lvAttachments.Items.Add(new ListViewItem(fileName));
+                        lvPinned.Items.Add(new ListViewItem(fileName));
 
-                        var filePath = DownloadedAttachmentsDirectory + "\\" + fileName;
+                        var filePath = $"{Constants.ReceivedAttachmentsDirectory}{fileName}";
                         var rfc822 = (MessagePart)attachment;
 
                         using (var stream = File.Create(filePath))
@@ -60,23 +54,23 @@ namespace PKS2
                         var part = (MimePart)attachment;
                         var fileName = attachment.ContentDisposition?.FileName;
 
-                        lvAttachments.Items.Add(new ListViewItem(fileName));
+                        lvPinned.Items.Add(new ListViewItem(fileName));
 
-                        var filePath = DownloadedAttachmentsDirectory + "\\" + fileName;
+                        var filePath = $"{Constants.ReceivedAttachmentsDirectory}{fileName}";
 
                         using (var stream = File.Create(filePath))
                             part.Content.DecodeTo(stream);
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Не удалось отобразить содержание письма\n\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
+
+                throw;
             }
         }
 
-        public async void InitBrowserAsync(string htmlContent)
+        private async void InitBrowserAsync(string htmlContent)
         {
             await EnsureCoreWebView2Async();
             wvBody.NavigateToString(htmlContent);
@@ -87,14 +81,22 @@ namespace PKS2
             await wvBody.EnsureCoreWebView2Async(null);
         }
 
-        private void Form3_FormClosing(object sender, FormClosingEventArgs e)
+        private void MessageForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             wvBody.Dispose();
         }
 
-        private void lvAttachments_Click(object sender, EventArgs e)
+        private void lvPinned_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Вложения хранятся в папке " + DownloadedAttachmentsDirectory);
+            var selectedItem = lvPinned.SelectedItems[0];
+            string filePath = $"{Constants.ReceivedAttachmentsDirectory}{selectedItem.Text}";
+
+            using (var fileOpener = new Process())
+            {
+                fileOpener.StartInfo.FileName = "explorer";
+                fileOpener.StartInfo.Arguments = "\"" + filePath + "\"";
+                fileOpener.Start();
+            }
         }
     }
 }

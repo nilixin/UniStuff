@@ -1,23 +1,24 @@
 using MimeKit;
-using System.Diagnostics;
 
 namespace PKS2
 {
     public partial class MainForm : Form
     {
-        ProtocolLogic? ProtocolLogic = null;
-        string AttachedFilePath = string.Empty;
-        List<MimeMessage> ReceivedMessages = new List<MimeMessage>();
+        string[] PinnedFiles = new string[0];
+        List<MimeMessage> InboxMessages = new();
+        SmtpLogic SmtpLogic = null;
 
         public MainForm()
         {
             InitializeComponent();
 
-            lUserEmailAddress.Text = "сначала авторизуйтесь ->";
+            Status.NeedsAuthorization(lConnection);
+            lPinnedStatus.Text = "";
+            bSend.Enabled = false;
+            bPin.Enabled = false;
         }
-
-        // Авторизация в аккаунт пользователя по вводимым им авторизационным данным
-        // протоколы SMTP, IMAP
+        
+        // Нажатие на кнопку "Авторизация"
         private void bAuthorize_Click(object sender, EventArgs e)
         {
             string emailAddress = string.Empty;
@@ -26,157 +27,173 @@ namespace PKS2
             int smtpPort = 0;
             string imapHost = string.Empty;
             int imapPort = 0;
+            string popHost = string.Empty;
+            int popPort = 0;
 
-            LoginForm loginForm = new();
-            loginForm.Show();
-            loginForm.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) => {
-                emailAddress = loginForm.EmailAddress;
-                password = loginForm.Password;
-                smtpHost = loginForm.SmtpHost;
-                smtpPort = loginForm.SmtpPort;
-                imapHost = loginForm.ImapHost;
-                imapPort = loginForm.ImapPort;
+            ClearAll();
 
-                initialize();
-                retrieve();
-            });
+            var chosenProtocols = cbChosenProtocols.SelectedIndex;
 
-            void initialize()
+            if (chosenProtocols < 0) // если не выбраны протоколы
+                MessageBox.Show("Сначала выберите подходящие протоколы в поле слева.");
+            else if (chosenProtocols == 0) // выбраны SMTP и IMAP
             {
-                try
+                var authorizeImapForm = new AuthorizeImapForm();
+                authorizeImapForm.Show();
+                authorizeImapForm.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
                 {
-                    ProtocolLogic = new ProtocolLogic();
-                    ProtocolLogic.Initialize(emailAddress, password, smtpHost, smtpPort, imapHost, imapPort);
-                    lUserEmailAddress.Text = emailAddress;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            } // тестирование подключения
-            void retrieve()
-            {
-                try
-                {
-                    ReceivedMessages = ProtocolLogic?.RetrieveInbox();
+                    emailAddress = authorizeImapForm.EmailAddress;
+                    password = authorizeImapForm.Password;
+                    smtpHost = authorizeImapForm.SmtpHost;
+                    smtpPort = authorizeImapForm.SmtpPort;
+                    imapHost = authorizeImapForm.ImapHost;
+                    imapPort = authorizeImapForm.ImapPort;
 
-                    for (int i = 0; i < ReceivedMessages?.Count; i++)
+                    connect();
+                });
+
+                void connect()
+                {
+                    try
                     {
-                        // обновление dgvInboxMessages
-                        dgvInboxMessages.Rows.Add(ReceivedMessages[i].From, ReceivedMessages[i].Date, ReceivedMessages[i].Subject);
+                        SmtpLogic = new SmtpLogic(emailAddress, password, smtpHost, smtpPort);
+                        var imapLogic = new ImapLogic(emailAddress, password, imapHost, imapPort);
+
+                        Status.Authorized(lConnection, emailAddress); // обновление статуса
+                        InboxMessages = imapLogic.Retrieve(); // подгрузка писем
+                        for (int i = 0; i < InboxMessages?.Count; i++)
+                        {
+                            dgvInbox.Rows.Add(InboxMessages[i].From, InboxMessages[i].Date, InboxMessages[i].Subject);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
+
+                bSend.Enabled = true;
+                bPin.Enabled = true;
+            }
+            else if (chosenProtocols == 1) // выбраны SMTP и POP3
+            {
+                var authorizePopForm = new AuthorizePopForm();
+                authorizePopForm.Show();
+                authorizePopForm.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) =>
                 {
-                    MessageBox.Show("Не удалось скачать почтовый ящик\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    emailAddress = authorizePopForm.EmailAddress;
+                    password = authorizePopForm.Password;
+                    smtpHost = authorizePopForm.SmtpHost;
+                    smtpPort = authorizePopForm.SmtpPort;
+                    popHost = authorizePopForm.PopHost;
+                    popPort = authorizePopForm.PopPort;
+
+                    connect();
+                });
+
+                void connect()
+                {
+                    try
+                    {
+                        SmtpLogic = new SmtpLogic(emailAddress, password, smtpHost, smtpPort);
+                        var popLogic = new PopLogic(emailAddress, password, popHost, popPort);
+
+                        Status.Authorized(lConnection, emailAddress); // обновление статуса
+
+                        popLogic.Download();
+                        
+                        var messages = new List<MimeMessage>();
+                        
+                        var files = Directory.GetFiles(Constants.PopInboxFolder);
+
+                        if (files.Length <= 0) // если файлов не найдено
+                            return;
+
+                        foreach (var file in files)
+                        {
+                            var stream = File.OpenRead(file);
+                            var parser = new MimeParser(stream, MimeFormat.Entity);
+                            var message = parser.ParseMessage();
+
+                            dgvInbox.Rows.Add(message.From, message.Date, message.Subject); // добавление сообщения в dgvInbox
+                            InboxMessages.Add(message);  // добавление сообщения в InboxMessages для последующей ссылки на него по индексу в методе dgvInbox_CellClick
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            } // сохранение писем и их отображение в dgvInboxMessages
+
+                bSend.Enabled = true;
+                bPin.Enabled = true;
+            }
+            else { }
         }
 
-        // Авторизация в аккаунт пользователя по вводимым им авторизационным данным
-        // протокол POP3
-        private void bAuthorizePop_Click(object sender, EventArgs e)
-        {
-            string emailAddress = string.Empty;
-            string password = string.Empty;
-            string smtpHost = string.Empty;
-            int smtpPort = 0;
-            string pop3Host = string.Empty;
-            int pop3Port = 0;
-
-            LoginPopForm loginPopForm = new();
-            loginPopForm.Show();
-            loginPopForm.FormClosing += new FormClosingEventHandler((object? sender, FormClosingEventArgs e) => {
-                emailAddress = loginPopForm.EmailAddress;
-                password = loginPopForm.Password;
-                smtpHost = loginPopForm.SmtpHost;
-                smtpPort = loginPopForm.SmtpPort;
-                pop3Host = loginPopForm.Pop3Host;
-                pop3Port = loginPopForm.Pop3Port;
-
-                initialize();
-                downloadInbox();
-            });
-
-            void initialize()
-            {
-                try
-                {
-                    ProtocolLogic = new ProtocolLogic();
-                    ProtocolLogic.InitializePop(emailAddress, password, smtpHost, smtpPort, pop3Host, pop3Port);
-                    lUserEmailAddress.Text = emailAddress;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Не удалось авторизоваться\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-            void downloadInbox()
-            {
-                ProtocolLogic?.DownloadInboxPop();
-
-                var files = new DirectoryInfo(ProtocolLogic.DownloadedMessagesDirectory);
-
-                foreach (var file in files.GetFiles())
-                {
-                    //dgvInboxMessages.Rows.Add(ReceivedMessages[i].From, ReceivedMessages[i].Date, ReceivedMessages[i].Subject);
-                    dgvInboxMessages.Rows.Add(file.FullName, "NaN", "NaN");
-                }
-            }
-        }
-
-        // Отправка сообщения
-        private void bSend_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(AttachedFilePath)) // если пользователь добавил вложение
-            {
-                SentMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
-                ProtocolLogic.Send(message, AttachedFilePath);
-                AttachedFilePath = string.Empty;
-                lAttachmentStatus.Text = "";
-            }
-            else // если пользователь не добавлял вложение
-            {
-                SentMessage message = new(tbRecipientAddress.Text, tbSubject.Text, tbBody.Text);
-                ProtocolLogic.Send(message);
-            }
-        }
-
-        // Вложение файла в письмо
-        private void bAttach_Click(object sender, EventArgs e)
+        // Нажатие на кнопку "Вложить"
+        private void bPin_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.InitialDirectory = "c:\\Users";
-                
+                ofd.Multiselect = true;
+                ofd.InitialDirectory = "C:\\Users";
+
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    AttachedFilePath = ofd.FileName;
-                    lAttachmentStatus.Text = "\u2713";
+                    PinnedFiles = ofd.FileNames;
+                    for (int i = 0; i < PinnedFiles.Length; i++)
+                        lPinnedStatus.Text += "\u2713";
                 }
             }
         }
 
         // Выбор сообщение пользователем, последующее открытие формы сообщения
-        private void dgvInboxMessages_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvInbox_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
                 if (e.RowIndex >= 0)
                 {
-                    dgvInboxMessages.ClearSelection();
-                    dgvInboxMessages.Rows[e.RowIndex].Selected = true;
+                    dgvInbox.ClearSelection();
+                    dgvInbox.Rows[e.RowIndex].Selected = true;
 
-                    var messageForm = new MessageForm(ReceivedMessages[e.RowIndex]);
+                    var messageForm = new MessageForm(InboxMessages[e.RowIndex]);
                     messageForm.Show();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                string filePath = dgvInboxMessages.Rows[e.RowIndex].Cells[0].Value.ToString(); // абсолютная чушь
-                Process.Start("notepad.exe", filePath);
+                MessageBox.Show("Не удалось открыть письмо\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void bSend_Click(object sender, EventArgs e)
+        {
+            if (PinnedFiles.Length == 0) // пользователь не добавлял вложения
+            {
+                Message message = new(tbTo.Text, tbSubject.Text, tbBody.Text);
+                SmtpLogic.Send(message);
+
+            }
+            else // пользователь добавил вложения
+            {
+                Message message = new(tbTo.Text, tbSubject.Text, tbBody.Text);
+                SmtpLogic.Send(message, PinnedFiles);
+
+                PinnedFiles = new string[0];
+                lPinnedStatus.Text = "";
+            }
+        }
+
+        void ClearAll()
+        {
+            tbTo.Text = string.Empty;
+            tbSubject.Text = string.Empty;
+            tbBody.Text = string.Empty;
+
+            dgvInbox.Rows.Clear();
+            InboxMessages.Clear();
         }
     }
 }

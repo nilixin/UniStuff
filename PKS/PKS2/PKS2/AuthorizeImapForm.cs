@@ -1,6 +1,6 @@
 ﻿namespace PKS2
 {
-    public partial class LoginForm : Form
+    public partial class AuthorizeImapForm : Form
     {
         public string EmailAddress = string.Empty;
         public string Password = string.Empty;
@@ -9,14 +9,50 @@
         public string ImapHost = string.Empty;
         public int ImapPort = 0;
 
-        public LoginForm()
+        public AuthorizeImapForm()
         {
             InitializeComponent();
+
             DefineTabOrder();
         }
 
+        // Переход от tbEmailAddress, автоподстановка необходимых параметров конфигурации
+        private void tbEmailAddress_Leave(object sender, EventArgs e)
+        {
+            if (tbEmailAddress.Text.Contains("gmail")) // Gmail
+            {
+                tbSmtpHost.Text = "smtp.gmail.com";
+                tbSmtpPort.Text = "465";
+                tbImapHost.Text = "imap.gmail.com";
+                tbImapPort.Text = "993";
+                return;
+            }
+            else if (tbEmailAddress.Text.Contains("yandex")) // Yandex
+            {
+                tbSmtpHost.Text = "smtp.yandex.com";
+                tbSmtpPort.Text = "465";
+                tbImapHost.Text = "imap.yandex.ru";
+                tbImapPort.Text = "993";
+                return;
+            }
+            else if (tbEmailAddress.Text.Contains("mail.ru")) // Mail.ru
+            {
+                tbSmtpHost.Text = "smtp.mail.ru";
+                tbSmtpPort.Text = "465";
+                tbImapHost.Text = "imap.mail.ru";
+                tbImapPort.Text = "993";
+                return;
+            }
+            else if (string.IsNullOrEmpty(tbEmailAddress.Text)) { } // Пустая строка
+            else // Неизвестный домен
+                MessageBox.Show("Приложение не знает такого провайдера электронной почты\n" +
+                    "Информацию о хостах и портах можно найти на сайте провайдера электронной почты");
+        }
+
+        // Нажатие на кнопку "Подтвердить"
         private void bConfirm_Click(object sender, EventArgs e)
         {
+            // EmailAddress
             EmailAddress = tbEmailAddress.Text;
             if (string.IsNullOrEmpty(EmailAddress))
             {
@@ -24,6 +60,7 @@
                 return;
             }
 
+            // Password
             Password = tbPassword.Text;
             if (string.IsNullOrEmpty(Password))
             {
@@ -31,6 +68,7 @@
                 return;
             }
 
+            // SmtpHost
             SmtpHost = tbSmtpHost.Text;
             if (string.IsNullOrEmpty(SmtpHost))
             {
@@ -38,6 +76,7 @@
                 return;
             }
 
+            // SmtpPort
             try
             {
                 SmtpPort = int.Parse(tbSmtpPort.Text);
@@ -49,13 +88,15 @@
                 return;
             }
 
-            ImapHost = tbSmtpHost.Text;
+            // ImapHost
+            ImapHost = tbImapHost.Text;
             if (string.IsNullOrEmpty(ImapHost))
             {
                 MessageBox.Show("Поле IMAP хоста пустое");
                 return;
             }
 
+            // ImapPort
             try
             {
                 ImapPort = int.Parse(tbImapPort.Text);
@@ -67,40 +108,8 @@
                 return;
             }
 
+            // Закрыть форму
             Close();
-        }
-
-        private void tbEmailAddress_Leave(object sender, EventArgs e)
-        {
-            if (tbEmailAddress.Text.Contains("gmail"))
-            {
-                tbSmtpHost.Text = "smtp.gmail.com";
-                //tbPort.Text = "587"; // не SSL
-                tbSmtpPort.Text = "465"; // SSL
-                tbImapHost.Text = "imap.gmail.com";
-                tbImapPort.Text = "993";
-                return;
-            }
-            else if (tbEmailAddress.Text.Contains("yandex"))
-            {
-                tbSmtpHost.Text = "smtp.yandex.com";
-                tbSmtpPort.Text = "465";
-                tbImapHost.Text = "imap.yandex.ru";
-                tbImapPort.Text = "993";
-                return;
-            }
-            else if (tbEmailAddress.Text.Contains("mail.ru"))
-            {
-                tbSmtpHost.Text = "smtp.mail.ru";
-                tbSmtpPort.Text = "465";
-                tbImapHost.Text = "imap.mail.ru";
-                tbImapPort.Text = "993";
-                return;
-            }
-            else if (string.IsNullOrEmpty(tbEmailAddress.Text)) { }
-            else
-                MessageBox.Show("Приложение не знает такого провайдера электронной почты\n" +
-                    "Информацию о хостах и портах можно найти на сайте провайдера электронной почты");
         }
 
         private void DefineTabOrder()
