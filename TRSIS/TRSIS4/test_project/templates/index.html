@@ -1,2 +1,19 @@
 {% extends "base.html" %}
 {% block title %}ТРСИС4 - Главная{% endblock title %}
+
+{% block content %}
+
+<h1>Главная</h1>
+<form method="POST">
+    {% csrf_token %}
+
+    <!-- <table>
+        {{ form }}
+    </table> -->
+    <br><br><br>
+    <input name="enter_questions" id="submit" type="submit" value="Ввести вопросы">
+    <br><br><br>
+    <input name="answer_questions" id="submit" type="submit" value="Ответить на вопросы">
+</form>
+
+{% endblock content %}

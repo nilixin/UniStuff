@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}ТРСИС4 - Вопрос{% endblock title %}
+
+{% block content %}
+
+<h1>Question</h1>
+<br><br>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <table>
+        {{ form }}
+    </table>
+
+    <br><br>
+    <input id="submit" type="submit" value="Отправить">
+</form>
+
+{% endblock content %}

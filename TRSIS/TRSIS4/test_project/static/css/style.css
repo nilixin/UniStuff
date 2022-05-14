@@ -15,8 +15,9 @@
     margin: 0;
 }
 
+
 body {
-    background-color: var(--dark_grey);
+    background-color: var(--light_grey);
 }
 
 #header {
@@ -25,7 +26,6 @@ body {
 }
 
 #header div {
-    background-color: red;
     width: 1200px;
     height: 100px;
     margin: auto;
@@ -39,16 +39,38 @@ body {
 #content {
     width: 1200px;
     height: 600px;
-    background-color: var(--medium_grey);
+    background-color: white;
     margin: auto;
+    text-align: center;
 }
 
 #content h1 {
-    color: var(--light_grey);
+    color: var(--dark_grey);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#footer {
-    background-color: var(--dark_green);
-    height: 400px;
+table {
+    margin: auto;
+}
+
+tr th {
+    padding: 10px;
+}
+
+tr th label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+}
+
+td div div label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+}
+
+input {
+    padding: 5px;
+}
+
+#submit {
+    padding: 10px;
 }
