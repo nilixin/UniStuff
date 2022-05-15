@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Подтвердить{% endblock title %}
+
+{% block content %}
+    
+<div class="wrapper">
+    
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <table>
+            <p style="color: grey;">Название теста:</p>
+            <h3>{{ new_test.title }}</h3>
+
+            <p style="color: grey;">Ссылка:</p>
+            <h3>{{ new_test.shortcut }}</h3>
+
+            <p style="color: grey;">Количество вопросов:</p>
+            <h3>{{ new_test.quant }}</h3>
+
+            <p style="color: grey;">Вопрос, ответы и правильный вариант:</p>
+            {% for question in new_test.questions %}
+                <h3>{{ question }}</h3>
+            {% endfor %}
+                
+        </table>
+
+        <input type="submit" value="Подтвердить">
+    </form>
+</div>
+
+{% endblock content %}
+    

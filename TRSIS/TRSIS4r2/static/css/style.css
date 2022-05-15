@@ -1,0 +1,42 @@
+@import "reset.css";
+
+:root {
+    --key: hsl(120, 60%, 65%);
+    --button: hsl(0, 0%, 80%);
+    --hover: hsl(0, 0%, 70%);
+    --focus: #333;
+}
+
+h1, h2, h3, p {
+    font-family: sans-serif;
+}
+
+header {
+    height: 100px;
+    width: 100%;
+    background-color: var(--key);
+}
+
+.wrapper {
+    margin: auto;
+    width: 1000px;
+}
+
+.panel {
+    display: flex;
+    justify-content: center;
+}
+
+.panel_element {
+    background-color: var(--button);
+    padding: 10px 30px;
+    margin: 0 30px;
+    transition-duration: 200ms;
+}
+
+.panel_element:hover {
+    background-color: var(--hover);
+    padding: 10px 30px;
+    margin: 0 30px;
+    transition-duration: 200ms;
+}

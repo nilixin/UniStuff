@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Составить тест{% endblock title %}
+
+
+{% block content %}
+
+<div class="wrapper">
+    
+    
+    {% if shortcut == None %}
+        
+        <form method="POST" action="">
+            {% csrf_token %}
+
+            <table>
+                {{ test_form }}
+            </table>
+            <input type="submit" value="Сгенерировать">
+        </form>
+
+    {% else %}
+        <h1>Вопрос {{ num }} из {{ quant }}</h1>
+
+        <form method="POST" action="">
+            {% csrf_token %}
+
+            <table>
+                {{ fill_form }}
+            </table>
+
+            <input type="submit" value="Далее">
+        </form>
+
+    {% endif %}
+
+</div>
+    
+{% endblock content %}
+    
