@@ -4,14 +4,8 @@ class Test(models.Model):
     title = models.CharField(max_length=300)
     shortcut = models.CharField(max_length=20)
     quant = models.IntegerField()
-    questions_field = models.CharField(max_length=65536)
+    questions_field = models.BinaryField()
     questions = list()
-
-    def serialize(self):
-        s = str()
-        for question in self.questions:
-            s += question
-        return s
 
     def __str__(self):
         return_title = self.title

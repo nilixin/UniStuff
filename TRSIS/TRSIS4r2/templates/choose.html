@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Выбрать тест{% endblock title %}
+
+
+{% block content %}
+
+<div class="wrapper">
+    
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <table>
+            
+            {% for test in tests %}
+                
+                <div class="test">
+                    <p class="par">Название теста:</p>
+                    <h3>{{ test.title }}</h3>
+
+                    <p class="par">Ссылка:</p>
+                    <h3>{{ test.shortcut }}</h3>
+
+                    <p class="par">Количество вопросов:</p>
+                    <h3>{{ test.quant }}</h3>
+                    
+                </div>
+            {% endfor %}
+
+            <label for="cars">Выберите ссылку теста:</label>
+            <select name="cars">
+                
+                {% for test in tests %}
+                    <option value="{{ test.shortcut }}">{{ test.shortcut }}</option>
+                {% endfor %}
+                    
+            </select>
+            
+            {{ choose_form }}
+            <input type="submit" value="Подтвердить">
+                
+        </table>
+
+    </form>
+
+</div>
+    
+{% endblock content %}
+    

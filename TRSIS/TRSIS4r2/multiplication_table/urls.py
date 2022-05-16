@@ -8,5 +8,5 @@ urlpatterns = [
     path('compose/', views.compose),
     path('compose/<str:shortcut>/<str:quant>/<str:num>/', views.fill, name='ask'),
     path('compose/<str:shortcut>/confirm/', views.confirm, name='confirm'),
-    path('take/', views.take),
+    path('choose/', views.choose),
 ]

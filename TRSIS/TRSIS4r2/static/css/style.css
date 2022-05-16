@@ -40,3 +40,13 @@ header {
     margin: 0 30px;
     transition-duration: 200ms;
 }
+
+.test {
+    background-color: var(--button);
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.par {
+    color: var(--focus);
+}

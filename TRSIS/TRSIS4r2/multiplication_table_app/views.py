@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .forms import FillForm, TestForm
+from pickle import dumps, loads
+from .forms import ChooseForm, FillForm, TestForm
 from .models import Test
 
 new_test = None
@@ -58,11 +59,39 @@ def fill(request, shortcut, quant, num):
 
 def confirm(request, shortcut):
     if request.method == 'POST':
-        addable_test = Test(title=new_test.title, shortcut=new_test.shortcut, quant=new_test.quant, questions_field=new_test.serialize)
-        addable_test.save()
+        questions_serialized = dumps(new_test) # сериализация объекта new_test класса Test
+        addable_test = Test(title=new_test.title, shortcut=new_test.shortcut, quant=new_test.quant, questions_field=questions_serialized)
+        addable_test.save() # сохранение в бд
         return redirect('index')
     else:
         return render(request, 'confirm.html', {'new_test': new_test})
 
-def take(request):
-    return render(request, 'take.html')
+def choose(request):
+    # ✓ Предложить список тестов /choose 
+    # Пользователь выбирает понравившийся ему тест /choose
+    # Тест подгружается и отсылается в форму /choose/<shortcut>/<quant>/<num>
+
+    if request.method == 'POST':
+        choose_form = ChooseForm(request.POST)
+
+        if choose_form.is_valid():
+            cd = choose_form.cleaned_data
+            chosen = cd['chosen']
+            return HttpResponse(content=f'<h1>{chosen}</h1>')
+            # TODO переделать обработку выбранного теста
+            # нихрена не перемещает, потому что этому полю ничего не присваивается
+            # я присваиваю значение input'у, который не входит в форму, а посему не возвращается
+            # вместо того, чтобы использовать модель (как дебил), 
+            # я должен понять как возвращать значения input'ов из templat'ов в views
+        else:
+            return HttpResponse(content='<h1>Form is not valid</h1>')
+    else:
+        tests = Test.objects.all()
+
+        for test in tests:
+            test.questions = loads(test.questions_field)
+
+        choose_form = ChooseForm
+        return render(request, 'choose.html', {'choose_form': choose_form, 'tests': tests})
+
+#def take(request):

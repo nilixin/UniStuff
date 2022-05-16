@@ -20,3 +20,6 @@ class FillForm(forms.Form):
     ]
 
     correct = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label='Правильный ответ')
+
+class ChooseForm(forms.Form):
+    chosen = forms.CharField(disabled=True, required=False)
