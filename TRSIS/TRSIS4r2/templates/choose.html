@@ -7,8 +7,7 @@
 
 <div class="wrapper">
     
-    <form method="POST" action="">
-        {% csrf_token %}
+    <form action="">
 
         <table>
             
@@ -27,8 +26,8 @@
                 </div>
             {% endfor %}
 
-            <label for="cars">Выберите ссылку теста:</label>
-            <select name="cars">
+            <label for="shortcut">Выберите ссылку теста:</label>
+            <select name="shortcut">
                 
                 {% for test in tests %}
                     <option value="{{ test.shortcut }}">{{ test.shortcut }}</option>
@@ -36,7 +35,6 @@
                     
             </select>
             
-            {{ choose_form }}
             <input type="submit" value="Подтвердить">
                 
         </table>

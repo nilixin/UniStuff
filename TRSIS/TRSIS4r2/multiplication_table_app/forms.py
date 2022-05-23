@@ -21,5 +21,12 @@ class FillForm(forms.Form):
 
     correct = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label='Правильный ответ')
 
-class ChooseForm(forms.Form):
-    chosen = forms.CharField(disabled=True, required=False)
+class TakeForm(forms.Form):
+    CHOICES = [
+        (1, 'Первый'),
+        (2, 'Второй'),
+        (3, 'Третий'),
+        (4, 'Четвёртый')
+    ]
+
+    chosen = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label='Выберите ответ')

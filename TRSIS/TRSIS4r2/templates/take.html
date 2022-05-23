@@ -5,5 +5,26 @@
 
 {% block content %}
 
+<div class="wrapper">
+
+    <h1>Вопрос {{ num }} из {{ quant }}</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <div class="test">
+                <p class="par">Название теста:</p>
+                <h3>{{ takeable_test.title }}</h3>
+
+                <p>{{ takeable_questions_str }}</p>
+                    
+
+                {{ take_form }}
+            </div>
+        </table>
+        <input type="submit" value="Далее">
+    </form>
+
+</div>
 
 {% endblock content %}
