@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p { font-size:24px; font-weight: bold; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+    <form action="">
+        <table>
+            <div class="block">
+                <p>оригинал</p>
+                <img src="data:image/png;base64, {{ images.0 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>изменение размера</p>
+                <img src="data:image/png;base64, {{ images.1 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>изменение размера в разах</p>
+                <img src="data:image/png;base64, {{ images.2 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>обрезка изображения</p>
+                <img src="data:image/png;base64, {{ images.3 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>поворот изображения</p>
+                <img src="data:image/png;base64, {{ images.4 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>переворот изображения</p>
+                <img src="data:image/png;base64, {{ images.5 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>отражение изображения</p>
+                <img src="data:image/png;base64, {{ images.6 }}" alt="Ошибка">
+            </div>
+
+            <div class="block">
+                <p>вставка изображения поверх другого</p>
+                <img src="data:image/png;base64, {{ images.7 }}" alt="Ошибка">
+            </div>
+        </table>
+        <input type="submit" value="Скачать">
+    </form>
+</body>
+</html>
