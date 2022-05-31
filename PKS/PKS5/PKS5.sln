@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.1.32414.318
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PKS5", "PKS5\PKS5.csproj", "{F8A5AE4D-B943-43FA-B95B-C5EB393AD2D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PKS5", "PKS5\PKS5.csproj", "{059AE3D2-CFAD-460C-B73A-1EEE93118E77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8A5AE4D-B943-43FA-B95B-C5EB393AD2D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8A5AE4D-B943-43FA-B95B-C5EB393AD2D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8A5AE4D-B943-43FA-B95B-C5EB393AD2D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8A5AE4D-B943-43FA-B95B-C5EB393AD2D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{059AE3D2-CFAD-460C-B73A-1EEE93118E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{059AE3D2-CFAD-460C-B73A-1EEE93118E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{059AE3D2-CFAD-460C-B73A-1EEE93118E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{059AE3D2-CFAD-460C-B73A-1EEE93118E77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5720EFB0-BFB1-44ED-8F4A-9CAC27447B61}
+		SolutionGuid = {ADE87200-B701-4EB2-B891-E583B12B347A}
 	EndGlobalSection
 EndGlobal
