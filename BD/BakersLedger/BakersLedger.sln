@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BakersLedger", "BakersLedger\BakersLedger.csproj", "{985E7694-8D3A-4F9E-9646-38CB74D40142}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{985E7694-8D3A-4F9E-9646-38CB74D40142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985E7694-8D3A-4F9E-9646-38CB74D40142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985E7694-8D3A-4F9E-9646-38CB74D40142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985E7694-8D3A-4F9E-9646-38CB74D40142}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AA6BD7A-F6BA-444C-B423-BD4837412AEA}
+	EndGlobalSection
+EndGlobal
