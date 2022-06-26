@@ -37,18 +37,52 @@ namespace BakersLedger
 
         private void btnDeliveries_Click(object sender, RoutedEventArgs e)
         {
-            if (spDeliveries.Visibility == Visibility.Hidden && !AnyStackPanelVisible)
-            {
-                spDeliveries.Visibility = Visibility.Visible;
-                AnyStackPanelVisible = true;
-                btnDeliveries.Background = (Brush)Application.Current.Resources["DarkBase"];
-            }
-            else
-            {
-                spDeliveries.Visibility = Visibility.Hidden;
-                AnyStackPanelVisible = false;
-                btnDeliveries.Background = (Brush)Application.Current.Resources["LightBase"];
-            }
+            UIMethods.ToggleVisibility(spDeliveries, btnDeliveries);
+        }
+
+        private void btnShops_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spShops, btnShops);
+        }
+
+        private void btnProducts_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spProducts, btnProducts);
+        }
+
+        private void btnTrademarks_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spTrademarks, btnTrademarks);
+        }
+
+        private void btnOwners_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spOwners, btnOwners);
+        }
+
+        private void btnDistricts_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spDistricts, btnDistricts);
+        }
+
+        private void btnSettlements_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spSettlements, btnSettlements);
+        }
+
+        private void btnGrades_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spGrades, btnGrades);
+        }
+
+        private void btnLegalentities_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spLegalentities, btnLegalentities);
+        }
+
+        private void btnQueries_Click(object sender, RoutedEventArgs e)
+        {
+            UIMethods.ToggleVisibility(spQueries, btnQueries);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

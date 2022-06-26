@@ -45,15 +45,15 @@
                 </Grid.RowDefinitions>
 
                 <Button x:Name="btnDeliveries" Grid.Row="0" Style="{StaticResource MenuButton}" Click="btnDeliveries_Click" Content="Поставки"/>
-                <Button x:Name="btnShops" Grid.Row="1" Style="{StaticResource MenuButton}" Content="Магазины"/>
-                <Button x:Name="btnProducts" Grid.Row="2" Style="{StaticResource MenuButton}" Content="Продукты"/>
-                <Button x:Name="btnTrademarks" Grid.Row="3" Style="{StaticResource MenuButton}" Content="Марки"/>
-                <Button x:Name="btnOwners" Grid.Row="4" Style="{StaticResource MenuButton}" Content="Владельцы"/>
-                <Button x:Name="btnDistricts" Grid.Row="5" Style="{StaticResource MenuButton}" Content="Районы"/>
-                <Button x:Name="btnSettlements" Grid.Row="6" Style="{StaticResource MenuButton}" Content="Города"/>
-                <Button x:Name="btnGrades" Grid.Row="7" Style="{StaticResource MenuButton}" Content="Сорта муки"/>
-                <Button x:Name="btnLegalentities" Grid.Row="8" Style="{StaticResource MenuButton}" Content="Типы собственности"/>
-                <Button x:Name="btnQueries" Grid.Row="9" Style="{StaticResource MenuButtonFocus}" Content="Запросы"/>
+                <Button x:Name="btnShops" Grid.Row="1" Style="{StaticResource MenuButton}" Click="btnShops_Click" Content="Магазины"/>
+                <Button x:Name="btnProducts" Grid.Row="2" Style="{StaticResource MenuButton}" Click="btnProducts_Click" Content="Продукты"/>
+                <Button x:Name="btnTrademarks" Grid.Row="3" Style="{StaticResource MenuButton}" Click="btnTrademarks_Click" Content="Марки"/>
+                <Button x:Name="btnOwners" Grid.Row="4" Style="{StaticResource MenuButton}" Click="btnOwners_Click" Content="Владельцы"/>
+                <Button x:Name="btnDistricts" Grid.Row="5" Style="{StaticResource MenuButton}" Click="btnDistricts_Click" Content="Районы"/>
+                <Button x:Name="btnSettlements" Grid.Row="6" Style="{StaticResource MenuButton}" Click="btnSettlements_Click" Content="Города"/>
+                <Button x:Name="btnGrades" Grid.Row="7" Style="{StaticResource MenuButton}" Click="btnGrades_Click" Content="Сорта муки"/>
+                <Button x:Name="btnLegalentities" Grid.Row="8" Style="{StaticResource MenuButton}" Click="btnLegalentities_Click" Content="Типы собственности"/>
+                <Button x:Name="btnQueries" Grid.Row="9" Style="{StaticResource MenuButton}" Click="btnQueries_Click"  Content="Запросы"/>
                 <Button x:Name="btnSettings" Grid.Row="14" Style="{StaticResource MenuButton}" Content="Настройки"/>
                 <Button x:Name="btnExit" Grid.Row="15" Style="{StaticResource MenuButtonWarning}" Click="btnExit_Click" Content="Выход"/>
             </Grid>
@@ -86,21 +86,80 @@
                 <!-- Панели -->
 
                 <!-- Панели => Панель spDeliveries -->
-                <StackPanel x:Name="spDeliveries" Grid.Column="0" Visibility="Visible">
+                <StackPanel x:Name="spDeliveries" Visibility="Hidden">
                     <Border Background="{StaticResource DarkerBase}"
                             CornerRadius="20"
                             Margin="20, 0">
                         <StackPanel Margin="40, 10, 40, 20">
-                            <TextBlock Style="{StaticResource PanelTextBlock}" Margin="0, 0, 0, 10">Торговая марка</TextBlock>
-                            <ComboBox x:Name="cbDeliveriesTrademark" Style="{StaticResource PanelComboBox}" Margin="0, 0, 0, 10" IsEditable="True"></ComboBox>
-                            <TextBlock Style="{StaticResource PanelTextBlock}" Margin="0, 0, 0, 10">Производитель</TextBlock>
-                            <ComboBox x:Name="cbDeliveriesCompany" Style="{StaticResource PanelComboBox}" Margin="0, 0, 0, 10"></ComboBox>
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <Border>
+                                <TextBlock Style="{StaticResource PanelTextBlock}">Торговая марка</TextBlock>
+                            </Border>
+                            <Border>
+                                <ComboBox x:Name="cbDeliveriesTrademark" Style="{StaticResource PanelComboBox}" IsEditable="True"></ComboBox>
+                            </Border>
+                            <Border>
+                                <TextBlock Style="{StaticResource PanelTextBlock}">Производитель</TextBlock>
+                            </Border>
+                            <Border>
+                                <ComboBox x:Name="cbDeliveriesCompany" Style="{StaticResource PanelComboBox}"></ComboBox>
+                            </Border>
                         </StackPanel>
                     </Border>
                     
                     <StackPanel>
                         <Button Style="{StaticResource SimpleButton}" Content="Sample"/>
                     </StackPanel>
+                </StackPanel>
+
+                <!-- Панели => Панель spShops -->
+                <StackPanel x:Name="spShops" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Shops</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spProducts -->
+                <StackPanel x:Name="spProducts" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Products</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spTrademarks -->
+                <StackPanel x:Name="spTrademarks" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Trademarks</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spOwners -->
+                <StackPanel x:Name="spOwners" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Owners</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spDistricts -->
+                <StackPanel x:Name="spDistricts" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Districts</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spSettlements -->
+                <StackPanel x:Name="spSettlements" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Settlements</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spGrades -->
+                <StackPanel x:Name="spGrades" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Grades</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spLegalentities -->
+                <StackPanel x:Name="spLegalentities" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Legalentities</TextBlock>
+                </StackPanel>
+
+                <!-- Панели => Панель spQueries -->
+                <StackPanel x:Name="spQueries" Visibility="Hidden">
+                    <TextBlock Style="{StaticResource PanelTextBlock}">Queries</TextBlock>
                 </StackPanel>
 
                 <!-- Навигация -->

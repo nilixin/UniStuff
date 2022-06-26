@@ -20,7 +20,7 @@
             <SolidColorBrush x:Key="Negative" Color="#ffffff"/>
             <SolidColorBrush x:Key="DesaturatedNegative" Color="#cccccc"/>
 
-            <!-- Кнопка меню . Простая -->
+            <!-- Кнопка меню . Простая . Незалипшая -->
             <Style x:Key="MenuButton" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource LightBase}" />
                 <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
@@ -28,6 +28,35 @@
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontWeight" Value="Bold"/>
                 
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Кнопка меню . Простая . Залипшая -->
+            <Style x:Key="MenuButtonSticky" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource DarkBase}" />
+                <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -295,7 +324,7 @@
 
             <!-- В панеле, подпись элемента -->
             <Style x:Key="PanelTextBlock" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{StaticResource LighterBase}"/>
+                <Setter Property="Foreground" Value="{StaticResource LightestBase}"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
