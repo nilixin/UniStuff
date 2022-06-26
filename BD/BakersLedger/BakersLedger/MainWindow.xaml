@@ -44,22 +44,22 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Button Grid.Row="0" x:Name="btnDeliveries" Style="{StaticResource MenuButton}" Click="btnDeliveries_Click">Поставки</Button>
-                <Button Grid.Row="1" x:Name="btnShops" Style="{StaticResource MenuButton}">Магазины</Button>
-                <Button Grid.Row="2" x:Name="btnProducts" Style="{StaticResource MenuButton}">Продукты</Button>
-                <Button Grid.Row="3" x:Name="btnTrademarks" Style="{StaticResource MenuButton}">Марки</Button>
-                <Button Grid.Row="4" x:Name="btnOwners" Style="{StaticResource MenuButton}">Владельцы</Button>
-                <Button Grid.Row="5" x:Name="btnDistricts" Style="{StaticResource MenuButton}">Районы</Button>
-                <Button Grid.Row="6" x:Name="btnSettlements" Style="{StaticResource MenuButton}">Города</Button>
-                <Button Grid.Row="7" x:Name="btnGrades" Style="{StaticResource MenuButton}">Сорта муки</Button>
-                <Button Grid.Row="8" x:Name="btnLegalentities" Style="{StaticResource MenuButton}">Типы собственности</Button>
-                <Button Grid.Row="9" x:Name="btnQueries" Style="{StaticResource MenuButtonFocus}">Запросы</Button>
-                <Button Grid.Row="14" x:Name="btnSettings" Style="{StaticResource MenuButton}">Настройки</Button>
-                <Button Grid.Row="15" x:Name="btnExit" Style="{StaticResource MenuButtonWarning}" Click="btnExit_Click">Выход</Button>
+                <Button x:Name="btnDeliveries" Grid.Row="0" Style="{StaticResource MenuButton}" Click="btnDeliveries_Click" Content="Поставки"/>
+                <Button x:Name="btnShops" Grid.Row="1" Style="{StaticResource MenuButton}" Content="Магазины"/>
+                <Button x:Name="btnProducts" Grid.Row="2" Style="{StaticResource MenuButton}" Content="Продукты"/>
+                <Button x:Name="btnTrademarks" Grid.Row="3" Style="{StaticResource MenuButton}" Content="Марки"/>
+                <Button x:Name="btnOwners" Grid.Row="4" Style="{StaticResource MenuButton}" Content="Владельцы"/>
+                <Button x:Name="btnDistricts" Grid.Row="5" Style="{StaticResource MenuButton}" Content="Районы"/>
+                <Button x:Name="btnSettlements" Grid.Row="6" Style="{StaticResource MenuButton}" Content="Города"/>
+                <Button x:Name="btnGrades" Grid.Row="7" Style="{StaticResource MenuButton}" Content="Сорта муки"/>
+                <Button x:Name="btnLegalentities" Grid.Row="8" Style="{StaticResource MenuButton}" Content="Типы собственности"/>
+                <Button x:Name="btnQueries" Grid.Row="9" Style="{StaticResource MenuButtonFocus}" Content="Запросы"/>
+                <Button x:Name="btnSettings" Grid.Row="14" Style="{StaticResource MenuButton}" Content="Настройки"/>
+                <Button x:Name="btnExit" Grid.Row="15" Style="{StaticResource MenuButtonWarning}" Click="btnExit_Click" Content="Выход"/>
             </Grid>
         </Grid>
 
-        <!-- Главная панель -->
+        <!-- Контент -->
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -67,13 +67,86 @@
             </Grid.RowDefinitions>
 
             <!-- Верхняя панель -->
-            <Grid MouseDown="Grid_MouseDown" Background="{StaticResource DarkBase}">
+            <Grid Grid.Row="0" MouseDown="Grid_MouseDown" Background="{StaticResource DarkBase}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+            </Grid>
+
+            <!-- Главная панель -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Панели -->
+
+                <!-- Панели => Панель spDeliveries -->
+                <StackPanel x:Name="spDeliveries" Grid.Column="0" Visibility="Visible">
+                    <Border Background="{StaticResource DarkerBase}"
+                            CornerRadius="20"
+                            Margin="20, 0">
+                        <StackPanel Margin="40, 10, 40, 20">
+                            <TextBlock Style="{StaticResource PanelTextBlock}" Margin="0, 0, 0, 10">Торговая марка</TextBlock>
+                            <ComboBox x:Name="cbDeliveriesTrademark" Style="{StaticResource PanelComboBox}" Margin="0, 0, 0, 10" IsEditable="True"></ComboBox>
+                            <TextBlock Style="{StaticResource PanelTextBlock}" Margin="0, 0, 0, 10">Производитель</TextBlock>
+                            <ComboBox x:Name="cbDeliveriesCompany" Style="{StaticResource PanelComboBox}" Margin="0, 0, 0, 10"></ComboBox>
+                        </StackPanel>
+                    </Border>
+                    
+                    <StackPanel>
+                        <Button Style="{StaticResource SimpleButton}" Content="Sample"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Навигация -->
+                <Grid Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Навигация => Кнопки -->
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Button x:Name="btnInsert" Grid.Row="0" Style="{StaticResource SimpleButton}" Content="Добавить"/>
+                            <Button x:Name="btnAlter" Grid.Row="1" Style="{StaticResource SimpleButton}" Content="Изменить"/>
+                            <Button x:Name="btnDelete" Grid.Row="2" Style="{StaticResource SimpleButtonWarning}" Content="Удалить"/>
+
+                            <Grid Grid.Row="3" Margin="30, 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="btnFirst" Grid.Column="0" Style="{StaticResource SmallButton}" Content="|&lt;"/>
+                                <Button x:Name="btnPrevious" Grid.Column="1" Style="{StaticResource SmallButton}" Content="&lt;"/>
+                                <Button x:Name="btnNext" Grid.Column="2" Style="{StaticResource SmallButton}" Content=">"/>
+                                <Button x:Name="btnLast" Grid.Column="3" Style="{StaticResource SmallButton}" Content=">|"/>
+                            </Grid>
+                        </Grid>
+
+                        <!-- Навигация => Колосок -->
+                        <Image Grid.Row="1" Margin="20" VerticalAlignment="Bottom">
+                            <Image.Source>
+                                <BitmapImage UriSource="Resources/ear.png"/>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

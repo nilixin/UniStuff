@@ -20,6 +20,8 @@ namespace BakersLedger
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool AnyStackPanelVisible = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +37,18 @@ namespace BakersLedger
 
         private void btnDeliveries_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("hello world");
+            if (spDeliveries.Visibility == Visibility.Hidden && !AnyStackPanelVisible)
+            {
+                spDeliveries.Visibility = Visibility.Visible;
+                AnyStackPanelVisible = true;
+                btnDeliveries.Background = (Brush)Application.Current.Resources["DarkBase"];
+            }
+            else
+            {
+                spDeliveries.Visibility = Visibility.Hidden;
+                AnyStackPanelVisible = false;
+                btnDeliveries.Background = (Brush)Application.Current.Resources["LightBase"];
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

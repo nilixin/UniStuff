@@ -10,17 +10,18 @@
             <SolidColorBrush x:Key="DarkBase" Color="#3a3a3a"/>
             <SolidColorBrush x:Key="LightBase" Color="#424242"/>
             <SolidColorBrush x:Key="LighterBase" Color="#494949"/>
+            <SolidColorBrush x:Key="LightestBase" Color="#595959"/>
             <SolidColorBrush x:Key="Focus" Color="#e5a845"/>
             <SolidColorBrush x:Key="LighterFocus" Color="#e6ba73"/>
             <SolidColorBrush x:Key="DarkerFocus" Color="#b8945c"/>
-            <SolidColorBrush x:Key="Warning" Color="#e54545"/>
-            <SolidColorBrush x:Key="LighterWarning" Color="#e67373"/>
-            <SolidColorBrush x:Key="DarkerWarning" Color="#b85c5c"/>
+            <SolidColorBrush x:Key="Warning" Color="#6d4646"/>
+            <SolidColorBrush x:Key="LighterWarning" Color="#8a5a5a"/>
+            <SolidColorBrush x:Key="DarkerWarning" Color="#543636"/>
             <SolidColorBrush x:Key="Negative" Color="#ffffff"/>
             <SolidColorBrush x:Key="DesaturatedNegative" Color="#cccccc"/>
 
             <!-- Кнопка меню . Простая -->
-            <Style TargetType="Button" x:Key="MenuButton">
+            <Style x:Key="MenuButton" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource LightBase}" />
                 <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -49,7 +50,7 @@
             </Style>
 
             <!-- Кнопка меню . Фокус -->
-            <Style TargetType="Button" x:Key="MenuButtonFocus">
+            <Style x:Key="MenuButtonFocus" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource Focus}" />
                 <Setter Property="Foreground" Value="{StaticResource LightBase}"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -78,7 +79,7 @@
             </Style>
 
             <!-- Кнопка меню . Внимание -->
-            <Style TargetType="Button" x:Key="MenuButtonWarning">
+            <Style x:Key="MenuButtonWarning" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource Warning}" />
                 <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -106,14 +107,206 @@
                 </Style.Triggers>
             </Style>
 
+            <!-- Обычная кнопка . Простая -->
+            <Style x:Key="SimpleButton" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource LightBase}" />
+                <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="140"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
 
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
+            <!-- Обычная кнопка . Фокус -->
+            <Style x:Key="SimpleButtonFocus" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource Focus}" />
+                <Setter Property="Foreground" Value="{StaticResource LightBase}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="140"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
 
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterFocus}"/>
+                        <Setter Property="Foreground" Value="{StaticResource DarkBase}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkerFocus}"/>
+                        <Setter Property="Foreground" Value="{StaticResource DarkBase}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
+            <!-- Обычная кнопка . Внимание -->
+            <Style x:Key="SimpleButtonWarning" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource Warning}" />
+                <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="140"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
 
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterWarning}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkerWarning}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
+            <!-- Маленькая кнопка . Простая -->
+            <Style x:Key="SmallButton" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource LightBase}" />
+                <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="35"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
 
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
+            <!-- Маленькая кнопка . Фокус -->
+            <Style x:Key="SmallButtonFocus" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource Focus}" />
+                <Setter Property="Foreground" Value="{StaticResource LightBase}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="35"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterFocus}"/>
+                        <Setter Property="Foreground" Value="{StaticResource DarkBase}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkerFocus}"/>
+                        <Setter Property="Foreground" Value="{StaticResource DarkBase}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Обычная кнопка . Внимание -->
+            <Style x:Key="SmallButtonWarning" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource Warning}" />
+                <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="35"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource LighterWarning}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseCaptured" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DarkerWarning}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- В панеле, подпись элемента -->
+            <Style x:Key="PanelTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource LighterBase}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
+            <!-- В панеле, элемент ComboBox -->
+            <Style x:Key="PanelComboBox" TargetType="ComboBox">
+                <Setter Property="Background" Value="{StaticResource LightestBase}"/>
+                <Setter Property="Foreground" Value="{StaticResource Focus}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>
