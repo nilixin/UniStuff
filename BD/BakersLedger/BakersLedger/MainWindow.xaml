@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BakersLedger"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" Background="{StaticResource DarkBase}"
+        Title="MainWindow" Height="600" Width="1000" Background="{StaticResource LighterBase}"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip">
     
@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Rectangle Fill="#424242"/>
+        <Rectangle Fill="{StaticResource LightBase}"/>
 
         <!-- Меню -->
         <Grid Grid.Column="0">
@@ -45,15 +45,15 @@
                 </Grid.RowDefinitions>
 
                 <Button x:Name="btnDeliveries" Grid.Row="0" Style="{StaticResource MenuButton}" Click="btnDeliveries_Click" Content="Поставки"/>
-                <Button x:Name="btnShops" Grid.Row="1" Style="{StaticResource MenuButton}" Content="Магазины"/>
-                <Button x:Name="btnProducts" Grid.Row="2" Style="{StaticResource MenuButton}" Content="Продукты"/>
-                <Button x:Name="btnTrademarks" Grid.Row="3" Style="{StaticResource MenuButton}" Content="Марки"/>
-                <Button x:Name="btnOwners" Grid.Row="4" Style="{StaticResource MenuButton}" Content="Владельцы"/>
-                <Button x:Name="btnDistricts" Grid.Row="5" Style="{StaticResource MenuButton}" Content="Районы"/>
-                <Button x:Name="btnSettlements" Grid.Row="6" Style="{StaticResource MenuButton}" Content="Города"/>
-                <Button x:Name="btnGrades" Grid.Row="7" Style="{StaticResource MenuButton}" Content="Сорта муки"/>
-                <Button x:Name="btnLegalentities" Grid.Row="8" Style="{StaticResource MenuButton}" Content="Типы собственности"/>
-                <Button x:Name="btnQueries" Grid.Row="9" Style="{StaticResource MenuButtonFocus}" Content="Запросы"/>
+                <Button x:Name="btnShops" Grid.Row="1" Style="{StaticResource MenuButton}" Click="btnShops_Click" Content="Магазины"/>
+                <Button x:Name="btnProducts" Grid.Row="2" Style="{StaticResource MenuButton}" Click="btnProducts_Click" Content="Продукты"/>
+                <Button x:Name="btnTrademarks" Grid.Row="3" Style="{StaticResource MenuButton}" Click="btnTrademarks_Click" Content="Марки"/>
+                <Button x:Name="btnOwners" Grid.Row="4" Style="{StaticResource MenuButton}" Click="btnOwners_Click" Content="Владельцы"/>
+                <Button x:Name="btnDistricts" Grid.Row="5" Style="{StaticResource MenuButton}" Click="btnDistricts_Click" Content="Районы"/>
+                <Button x:Name="btnSettlements" Grid.Row="6" Style="{StaticResource MenuButton}" Click="btnSettlements_Click" Content="Города"/>
+                <Button x:Name="btnGrades" Grid.Row="7" Style="{StaticResource MenuButton}" Click="btnGrades_Click" Content="Сорта муки"/>
+                <Button x:Name="btnLegalentities" Grid.Row="8" Style="{StaticResource MenuButton}" Click="btnLegalentities_Click" Content="Типы собственности"/>
+                <Button x:Name="btnQueries" Grid.Row="9" Style="{StaticResource MenuButton}" Click="btnQueries_Click"  Content="Запросы"/>
                 <Button x:Name="btnSettings" Grid.Row="14" Style="{StaticResource MenuButton}" Content="Настройки"/>
                 <Button x:Name="btnExit" Grid.Row="15" Style="{StaticResource MenuButtonWarning}" Click="btnExit_Click" Content="Выход"/>
             </Grid>
@@ -67,7 +67,7 @@
             </Grid.RowDefinitions>
 
             <!-- Верхняя панель -->
-            <Grid Grid.Row="0" MouseDown="Grid_MouseDown" Background="{StaticResource DarkBase}">
+            <Grid Grid.Row="0" MouseDown="Grid_MouseDown" Background="{StaticResource LighterBase}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -77,31 +77,149 @@
             </Grid>
 
             <!-- Главная панель -->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Background="{StaticResource LighterBase}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Панели -->
+                <!-- Скроллы -->
 
-                <!-- Панели => Панель spDeliveries -->
-                <StackPanel x:Name="spDeliveries" Grid.Column="0" Visibility="Visible">
-                    <Border Background="{StaticResource DarkerBase}"
-                            CornerRadius="20"
-                            Margin="20, 0">
-                        <StackPanel Margin="40, 10, 40, 20">
-                            <TextBlock Style="{StaticResource PanelTextBlock}" Margin="0, 0, 0, 10">Торговая марка</TextBlock>
-                            <ComboBox x:Name="cbDeliveriesTrademark" Style="{StaticResource PanelComboBox}" Margin="0, 0, 0, 10" IsEditable="True"></ComboBox>
-                            <TextBlock Style="{StaticResource PanelTextBlock}" Margin="0, 0, 0, 10">Производитель</TextBlock>
-                            <ComboBox x:Name="cbDeliveriesCompany" Style="{StaticResource PanelComboBox}" Margin="0, 0, 0, 10"></ComboBox>
-                        </StackPanel>
-                    </Border>
-                    
+                <!-- Скроллы => Скролл svDeliveries -->
+                <ScrollViewer x:Name="svDeliveries" Visibility="Hidden">
                     <StackPanel>
-                        <Button Style="{StaticResource SimpleButton}" Content="Sample"/>
+
+                        <Border Background="{StaticResource LightBase}"
+                        CornerRadius="20"
+                        Margin="20, 0">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Торговая марка</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbDeliveriesTrademark" IsEditable="True"></ComboBox>
+                                </Border>
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Производитель</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbDeliveriesCompany"></ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel>
+                            <Button Style="{StaticResource SimpleButton}" Content="Sample"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svShops -->
+                <ScrollViewer x:Name="svShops" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Shops</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svProducts -->
+                <ScrollViewer x:Name="svProducts" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Products</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл spTrademarks -->
+                <ScrollViewer x:Name="svTrademarks" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Trademarks</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svOwners -->
+                <ScrollViewer x:Name="svOwners" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Owners</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svDistricts -->
+                <ScrollViewer x:Name="svDistricts" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Districts</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svSettlements -->
+                <ScrollViewer x:Name="svSettlements" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Settlements</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svGrades -->
+                <ScrollViewer x:Name="svGrades" Visibility="Visible">
+                    <StackPanel>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Сорт муки</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbGradesTitle" IsEditable="True"></ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Separator Height="20" Background="Transparent"/>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                                </Border>
+                                <Border>
+                                    <DataGrid x:Name="dgGrades"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svLegalentities -->
+                <ScrollViewer x:Name="svLegalentities" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Legalentities</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Скроллы => Скролл svQueries -->
+                <ScrollViewer x:Name="svQueries" Visibility="Hidden">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Queries</TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
 
                 <!-- Навигация -->
                 <Grid Grid.Column="1">

@@ -6,21 +6,20 @@
     <Application.Resources>
         <ResourceDictionary>
             <!-- Цвета -->
-            <SolidColorBrush x:Key="DarkerBase" Color="#353535"/>
-            <SolidColorBrush x:Key="DarkBase" Color="#3a3a3a"/>
-            <SolidColorBrush x:Key="LightBase" Color="#424242"/>
-            <SolidColorBrush x:Key="LighterBase" Color="#494949"/>
-            <SolidColorBrush x:Key="LightestBase" Color="#595959"/>
+            <SolidColorBrush x:Key="DarkerBase" Color="#b2b2b2"/>
+            <SolidColorBrush x:Key="DarkBase" Color="#d8d8d8"/>
+            <SolidColorBrush x:Key="LightBase" Color="#e5e5e5"/>
+            <SolidColorBrush x:Key="LighterBase" Color="#f2f2f2"/>
             <SolidColorBrush x:Key="Focus" Color="#e5a845"/>
             <SolidColorBrush x:Key="LighterFocus" Color="#e6ba73"/>
             <SolidColorBrush x:Key="DarkerFocus" Color="#b8945c"/>
-            <SolidColorBrush x:Key="Warning" Color="#6d4646"/>
-            <SolidColorBrush x:Key="LighterWarning" Color="#8a5a5a"/>
-            <SolidColorBrush x:Key="DarkerWarning" Color="#543636"/>
-            <SolidColorBrush x:Key="Negative" Color="#ffffff"/>
-            <SolidColorBrush x:Key="DesaturatedNegative" Color="#cccccc"/>
+            <SolidColorBrush x:Key="Warning" Color="#d3b6b6"/>
+            <SolidColorBrush x:Key="LighterWarning" Color="#edcccc"/>
+            <SolidColorBrush x:Key="DarkerWarning" Color="#b8a0a0"/>
+            <SolidColorBrush x:Key="Negative" Color="#666666"/>
+            <SolidColorBrush x:Key="DesaturatedNegative" Color="#7f7f7f"/>
 
-            <!-- Кнопка меню . Простая -->
+            <!-- Кнопка меню . Простая . Незалипшая -->
             <Style x:Key="MenuButton" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource LightBase}" />
                 <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
@@ -43,16 +42,16 @@
                         <Setter Property="Foreground" Value="{StaticResource Negative}"/>
                     </Trigger>
                     <Trigger Property="IsMouseCaptured" Value="True">
-                        <Setter Property="Background" Value="{StaticResource DarkBase}"/>
+                        <Setter Property="Background" Value="{StaticResource DarkerBase}"/>
                         <Setter Property="Foreground" Value="{StaticResource Negative}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
-            <!-- Кнопка меню . Фокус -->
-            <Style x:Key="MenuButtonFocus" TargetType="Button">
-                <Setter Property="Background" Value="{StaticResource Focus}" />
-                <Setter Property="Foreground" Value="{StaticResource LightBase}"/>
+            <!-- Кнопка меню . Простая . Залипшая -->
+            <Style x:Key="MenuButtonSticky" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource LighterBase}" />
+                <Setter Property="Foreground" Value="{StaticResource Negative}"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontWeight" Value="Bold"/>
@@ -68,12 +67,12 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{StaticResource LighterFocus}"/>
-                        <Setter Property="Foreground" Value="{StaticResource DarkBase}"/>
+                        <Setter Property="Background" Value="{StaticResource LighterBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
                     </Trigger>
                     <Trigger Property="IsMouseCaptured" Value="True">
-                        <Setter Property="Background" Value="{StaticResource DarkerFocus}"/>
-                        <Setter Property="Foreground" Value="{StaticResource DarkBase}"/>
+                        <Setter Property="Background" Value="{StaticResource DarkerBase}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Negative}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -295,17 +294,24 @@
 
             <!-- В панеле, подпись элемента -->
             <Style x:Key="PanelTextBlock" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{StaticResource LighterBase}"/>
+                <Setter Property="Foreground" Value="{StaticResource DarkerBase}"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
 
             <!-- В панеле, элемент ComboBox -->
             <Style x:Key="PanelComboBox" TargetType="ComboBox">
-                <Setter Property="Background" Value="{StaticResource LightestBase}"/>
+                <Setter Property="Background" Value="Red"/>
                 <Setter Property="Foreground" Value="{StaticResource Focus}"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
+            <!-- В панеле, граница панели -->
+            <Style x:Key="PanelBorder" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource LightBase}"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Margin" Value="20, 0"/>
             </Style>
 
         </ResourceDictionary>
