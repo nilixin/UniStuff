@@ -20,11 +20,20 @@ namespace BakersLedger
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool AnyStackPanelVisible = false;
-
         public MainWindow()
         {
             InitializeComponent();
+
+            string? message;
+            DBLogic dBLogic = new("Host=localhost;Username=postgres;Password=postgres;Database=bakers_ledger", out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var gradesTable = dBLogic.RetrieveAll("select * from grades_all_rus");
+            dgGrades.DataContext = gradesTable.DefaultView;
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -37,52 +46,52 @@ namespace BakersLedger
 
         private void btnDeliveries_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spDeliveries, btnDeliveries);
+            UIMethods.ToggleVisibility(svDeliveries, btnDeliveries);
         }
 
         private void btnShops_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spShops, btnShops);
+            UIMethods.ToggleVisibility(svShops, btnShops);
         }
 
         private void btnProducts_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spProducts, btnProducts);
+            UIMethods.ToggleVisibility(svProducts, btnProducts);
         }
 
         private void btnTrademarks_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spTrademarks, btnTrademarks);
+            UIMethods.ToggleVisibility(svTrademarks, btnTrademarks);
         }
 
         private void btnOwners_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spOwners, btnOwners);
+            UIMethods.ToggleVisibility(svOwners, btnOwners);
         }
 
         private void btnDistricts_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spDistricts, btnDistricts);
+            UIMethods.ToggleVisibility(svDistricts, btnDistricts);
         }
 
         private void btnSettlements_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spSettlements, btnSettlements);
+            UIMethods.ToggleVisibility(svSettlements, btnSettlements);
         }
 
         private void btnGrades_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spGrades, btnGrades);
+            UIMethods.ToggleVisibility(svGrades, btnGrades);
         }
 
         private void btnLegalentities_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spLegalentities, btnLegalentities);
+            UIMethods.ToggleVisibility(svLegalentities, btnLegalentities);
         }
 
         private void btnQueries_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(spQueries, btnQueries);
+            UIMethods.ToggleVisibility(svQueries, btnQueries);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

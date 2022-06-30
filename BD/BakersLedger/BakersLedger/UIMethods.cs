@@ -7,35 +7,35 @@ namespace BakersLedger
 {
     static class UIMethods
     {
-        private static StackPanel? _visibleStackPanel = null;
+        private static ScrollViewer? _visibleScrollViewer = null;
         private static Button? _visibleButton = null;
 
-        public static void ToggleVisibility(StackPanel stackPanel, Button button)
+        public static void ToggleVisibility(ScrollViewer scrollViewer, Button button)
         {
-            if (_visibleStackPanel == null) // нет отображённой панели
+            if (_visibleScrollViewer == null) // нет отображённой панели
             {
-                stackPanel.Visibility = Visibility.Visible;
+                scrollViewer.Visibility = Visibility.Visible;
                 button.Style = (Style)Application.Current.Resources["MenuButtonSticky"];
-                _visibleStackPanel = stackPanel;
+                _visibleScrollViewer = scrollViewer;
                 _visibleButton = button;
             }
-            else if (_visibleStackPanel == stackPanel) // выбрана та же отображаемая панель, панель прячется
+            else if (_visibleScrollViewer == scrollViewer) // выбрана та же отображаемая панель, панель прячется
             {
-                stackPanel.Visibility = Visibility.Hidden;
+                scrollViewer.Visibility = Visibility.Hidden;
                 button.Style = (Style)Application.Current.Resources["MenuButton"];
-                _visibleStackPanel = null;
+                _visibleScrollViewer = null;
                 _visibleButton = null;
             }
             else // выбрана другая панель для отображения, не смотря на уже отображённую
             {
-                _visibleStackPanel.Visibility = Visibility.Hidden;
+                _visibleScrollViewer.Visibility = Visibility.Hidden;
                 _visibleButton.Style = (Style)Application.Current.Resources["MenuButton"];
-                _visibleStackPanel = null;
+                _visibleScrollViewer = null;
                 _visibleButton = null;
 
-                stackPanel.Visibility = Visibility.Visible;
+                scrollViewer.Visibility = Visibility.Visible;
                 button.Style = (Style)Application.Current.Resources["MenuButtonSticky"];
-                _visibleStackPanel = stackPanel;
+                _visibleScrollViewer = scrollViewer;
                 _visibleButton = button;
             }
         }
