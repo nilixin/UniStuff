@@ -52,7 +52,7 @@
                 <Button x:Name="btnDistricts" Grid.Row="5" Style="{StaticResource MenuButton}" Click="btnDistricts_Click" Content="Районы"/>
                 <Button x:Name="btnSettlements" Grid.Row="6" Style="{StaticResource MenuButton}" Click="btnSettlements_Click" Content="Города"/>
                 <Button x:Name="btnGrades" Grid.Row="7" Style="{StaticResource MenuButton}" Click="btnGrades_Click" Content="Сорта муки"/>
-                <Button x:Name="btnLegalentities" Grid.Row="8" Style="{StaticResource MenuButton}" Click="btnLegalentities_Click" Content="Типы собственности"/>
+                <Button x:Name="btnLegals" Grid.Row="8" Style="{StaticResource MenuButton}" Click="btnLegals_Click" Content="Типы собственности"/>
                 <Button x:Name="btnQueries" Grid.Row="9" Style="{StaticResource MenuButton}" Click="btnQueries_Click"  Content="Запросы"/>
                 <Button x:Name="btnSettings" Grid.Row="14" Style="{StaticResource MenuButton}" Content="Настройки"/>
                 <Button x:Name="btnExit" Grid.Row="15" Style="{StaticResource MenuButtonWarning}" Click="btnExit_Click" Content="Выход"/>
@@ -86,6 +86,7 @@
                 <!-- Скроллы -->
 
                 <!-- Скроллы => Скролл svDeliveries -->
+                <!-- TODO обработать скролл -->
                 <ScrollViewer x:Name="svDeliveries" Visibility="Hidden">
                     <StackPanel>
 
@@ -123,7 +124,80 @@
                 <!-- Скроллы => Скролл svShops -->
                 <ScrollViewer x:Name="svShops" Visibility="Hidden">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Shops</TextBlock>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Номер</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbShopsNumber" IsEditable="True"></ComboBox>
+                                </Border>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Название</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbShopsTitle" IsEditable="True"></ComboBox>
+                                </Border>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Район</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbShopsDistrict" IsEditable="True"></ComboBox>
+                                </Border>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Город</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbShopsCity" IsEditable="True"></ComboBox>
+                                </Border>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Адрес</TextBlock>
+                                </Border>
+                                <Border>
+                                    <TextBox x:Name="tbShopsAddress"></TextBox>
+                                </Border>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Телефон</TextBlock>
+                                </Border>
+                                <Border>
+                                    <TextBox x:Name="tbShopsPhone"></TextBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Separator Height="20" Background="Transparent"/>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                                </Border>
+                                <Border>
+                                    <DataGrid x:Name="dgShops"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
 
@@ -144,26 +218,140 @@
                 <!-- Скроллы => Скролл svOwners -->
                 <ScrollViewer x:Name="svOwners" Visibility="Hidden">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Owners</TextBlock>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Владелец</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbOwnersTitle" IsEditable="True"></ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Separator Height="20" Background="Transparent"/>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                                </Border>
+                                <Border>
+                                    <DataGrid x:Name="dgOwners"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
 
                 <!-- Скроллы => Скролл svDistricts -->
                 <ScrollViewer x:Name="svDistricts" Visibility="Hidden">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Districts</TextBlock>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Район</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbDistrictsTitle" IsEditable="True"></ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Separator Height="20" Background="Transparent"/>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                                </Border>
+                                <Border>
+                                    <DataGrid x:Name="dgDistricts"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
 
                 <!-- Скроллы => Скролл svSettlements -->
                 <ScrollViewer x:Name="svSettlements" Visibility="Hidden">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Settlements</TextBlock>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Город</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbSettlementsTitle" IsEditable="True"></ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Separator Height="20" Background="Transparent"/>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                                </Border>
+                                <Border>
+                                    <DataGrid x:Name="dgSettlements"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
 
                 <!-- Скроллы => Скролл svGrades -->
-                <ScrollViewer x:Name="svGrades" Visibility="Visible">
+                <ScrollViewer x:Name="svGrades" Visibility="Hidden">
                     <StackPanel>
 
                         <Border Style="{StaticResource PanelBorder}">
@@ -207,10 +395,48 @@
                     </StackPanel>
                 </ScrollViewer>
 
-                <!-- Скроллы => Скролл svLegalentities -->
-                <ScrollViewer x:Name="svLegalentities" Visibility="Hidden">
+                <!-- Скроллы => Скролл svLegals -->
+                <ScrollViewer x:Name="svLegals" Visibility="Hidden">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Legalentities</TextBlock>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Тип собственности</TextBlock>
+                                </Border>
+                                <Border>
+                                    <ComboBox x:Name="cbLegalsTitle" IsEditable="True"></ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <Separator Height="20" Background="Transparent"/>
+
+                        <Border Style="{StaticResource PanelBorder}">
+                            <StackPanel Margin="40, 10, 40, 20">
+                                <StackPanel.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Border>
+                                    <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                                </Border>
+                                <Border>
+                                    <DataGrid x:Name="dgLegals"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                                </Border>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </ScrollViewer>
 
@@ -236,13 +462,18 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
 
                             <Button x:Name="btnInsert" Grid.Row="0" Style="{StaticResource SimpleButton}" Content="Добавить"/>
                             <Button x:Name="btnAlter" Grid.Row="1" Style="{StaticResource SimpleButton}" Content="Изменить"/>
                             <Button x:Name="btnDelete" Grid.Row="2" Style="{StaticResource SimpleButtonWarning}" Content="Удалить"/>
 
-                            <Grid Grid.Row="3" Margin="30, 0">
+                            <Label x:Name="labId" Grid.Row="3"
+                                   HorizontalAlignment="Center"
+                                   Content="NaN"/>
+
+                            <Grid Grid.Row="4" Margin="30, 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>

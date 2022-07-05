@@ -261,7 +261,7 @@
                 </Style.Triggers>
             </Style>
 
-            <!-- Обычная кнопка . Внимание -->
+            <!-- Маленькая кнопка . Внимание -->
             <Style x:Key="SmallButtonWarning" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource Warning}" />
                 <Setter Property="Foreground" Value="{StaticResource DesaturatedNegative}"/>
