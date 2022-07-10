@@ -8,5 +8,6 @@ namespace BakersLedger.ViewModels
 {
     public class CompaniesViewModel
     {
+
     }
 }

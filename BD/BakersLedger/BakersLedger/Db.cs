@@ -8,11 +8,11 @@ using Npgsql;
 
 namespace BakersLedger
 {
-    public class DBLogic
+    public class Db
     {
         private string? _connString = null;
 
-        public DBLogic(string connString, out string? exMessage)
+        public Db(string connString, out string? exMessage)
         {
             try
             {

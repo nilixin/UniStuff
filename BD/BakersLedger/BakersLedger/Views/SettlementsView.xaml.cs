@@ -24,6 +24,18 @@ namespace BakersLedger.Views
         public SettlementsView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new("Host=localhost;Username=postgres;Password=postgres;Database=bakers_ledger_experimental", out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var settlementsTable = db.RetrieveAll("select * from settlements_all_rus");
+            dgSettlements.ItemsSource = settlementsTable.DefaultView;
+
         }
     }
 }

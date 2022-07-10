@@ -41,10 +41,10 @@
                         <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
                     </Border>
                     <Border>
-                        <DataGrid x:Name="dgSettlements"
-                                              AutoGenerateColumns="True"
-                                              ItemsSource="{Binding}"
-                                              Height="200"></DataGrid>
+                        <DataGrid x:Name="dgSettlements" 
+                                  AutoGenerateColumns="True"
+                                  ItemsSource="{Binding}"
+                                  Height="200"></DataGrid>
                     </Border>
                 </StackPanel>
             </Border>

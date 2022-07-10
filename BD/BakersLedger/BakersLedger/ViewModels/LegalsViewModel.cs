@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BakersLedger.ViewModels
 {
-    public class LegalsViewModel : DictionaryTableViewModel
+    public class LegalsViewModel
     {
     }
 }

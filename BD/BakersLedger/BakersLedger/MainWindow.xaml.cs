@@ -26,12 +26,13 @@ namespace BakersLedger
             InitializeComponent();
 
             string? message;
-            DBLogic dBLogic = new("Host=localhost;Username=postgres;Password=postgres;Database=bakers_ledger_experimental", out message);
+            Db db = new("Host=localhost;Username=postgres;Password=postgres;Database=bakers_ledger_experimental", out message);
             if (!string.IsNullOrEmpty(message))
             {
                 MessageBox.Show(message);
                 return;
             }
+
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
