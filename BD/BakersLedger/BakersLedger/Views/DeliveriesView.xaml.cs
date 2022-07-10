@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public DeliveriesView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var deliveriesTable = db.RetrieveAll("select * from deliveries_all_rus");
+            dgDeliveries.ItemsSource = deliveriesTable.DefaultView;
         }
     }
 }

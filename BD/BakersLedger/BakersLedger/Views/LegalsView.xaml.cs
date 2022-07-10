@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public LegalsView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var legalsTable = db.RetrieveAll("select * from legals_all_rus");
+            dgLegals.ItemsSource = legalsTable.DefaultView;
         }
     }
 }

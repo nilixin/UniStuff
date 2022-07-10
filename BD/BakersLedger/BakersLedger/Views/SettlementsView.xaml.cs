@@ -26,7 +26,7 @@ namespace BakersLedger.Views
             InitializeComponent();
 
             string? message;
-            Db db = new("Host=localhost;Username=postgres;Password=postgres;Database=bakers_ledger_experimental", out message);
+            Db db = new(Constants.CONN_STRING, out message);
             if (!string.IsNullOrEmpty(message))
             {
                 MessageBox.Show(message);

@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public ShopsView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var shopsTable = db.RetrieveAll("select * from shops_all_rus");
+            dgShops.ItemsSource = shopsTable.DefaultView;
         }
     }
 }

@@ -8,7 +8,74 @@
              d:DesignHeight="660" d:DesignWidth="690">
     <ScrollViewer>
         <StackPanel>
-            <TextBlock Style="{StaticResource PanelTextBlock}">Trademarks</TextBlock>
+
+            <Border Style="{StaticResource PanelBorder}">
+                <StackPanel Margin="40, 10, 40, 20">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Марка</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbTrademarksTitle" IsEditable="True"></ComboBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Предприятие</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbTrademarksCompany" IsEditable="True"></ComboBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Сорт муки</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbTrademarksGrade" IsEditable="True"></ComboBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Сорт муки</TextBlock>
+                    </Border>
+                    <Border>
+                        <TextBox x:Name="tbTrademarksIngredients"></TextBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Вес</TextBlock>
+                    </Border>
+                    <Border>
+                        <TextBox x:Name="tbTrademarksWeight"></TextBox>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+            <Separator Height="20" Background="Transparent"/>
+
+            <Border Style="{StaticResource PanelBorder}">
+                <StackPanel Margin="40, 10, 40, 20">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                    </Border>
+                    <Border>
+                        <DataGrid x:Name="dgTrademarks"
+                                  AutoGenerateColumns="True"
+                                  ItemsSource="{Binding}"
+                                  Height="200"></DataGrid>
+                    </Border>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

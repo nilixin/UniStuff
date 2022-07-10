@@ -9,9 +9,7 @@
     <ScrollViewer>
         <StackPanel>
 
-            <Border Background="{StaticResource LightBase}"
-                        CornerRadius="20"
-                        Margin="20, 0">
+            <Border Style="{StaticResource PanelBorder}">
                 <StackPanel Margin="40, 10, 40, 20">
                     <StackPanel.Resources>
                         <Style TargetType="{x:Type Border}">
@@ -20,23 +18,71 @@
                     </StackPanel.Resources>
 
                     <Border>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Торговая марка</TextBlock>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Магазин</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbDeliveriesShop" IsEditable="True"></ComboBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Марка</TextBlock>
                     </Border>
                     <Border>
                         <ComboBox x:Name="cbDeliveriesTrademark" IsEditable="True"></ComboBox>
                     </Border>
+
                     <Border>
-                        <TextBlock Style="{StaticResource PanelTextBlock}">Производитель</TextBlock>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Предприятие</TextBlock>
                     </Border>
                     <Border>
-                        <ComboBox x:Name="cbDeliveriesCompany"></ComboBox>
+                        <ComboBox x:Name="cbDeliveriesCompany" IsEditable="True"></ComboBox>
                     </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Цена</TextBlock>
+                    </Border>
+                    <Border>
+                        <TextBox x:Name="tbDeliveriesPrice"></TextBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Количество</TextBlock>
+                    </Border>
+                    <Border>
+                        <TextBox x:Name="tbDeliveriesQuantity"></TextBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Дата</TextBlock>
+                    </Border>
+                    <Border>
+                        <Calendar x:Name="calDeliveriesDate"></Calendar>
+                    </Border>
+
                 </StackPanel>
             </Border>
 
-            <StackPanel>
-                <Button Style="{StaticResource SimpleButton}" Content="Sample"/>
-            </StackPanel>
+            <Separator Height="20" Background="Transparent"/>
+
+            <Border Style="{StaticResource PanelBorder}">
+                <StackPanel Margin="40, 10, 40, 20">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                    </Border>
+                    <Border>
+                        <DataGrid x:Name="dgDeliveries"
+                                  AutoGenerateColumns="True"
+                                  ItemsSource="{Binding}"
+                                  Height="200"></DataGrid>
+                    </Border>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public CompaniesViews()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var companiesTable = db.RetrieveAll("select * from companies_all_rus");
+            dgCompanies.ItemsSource = companiesTable.DefaultView;
         }
     }
 }

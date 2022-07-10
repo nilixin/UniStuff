@@ -75,7 +75,7 @@
                         <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
                     </Border>
                     <Border>
-                        <DataGrid x:Name="dgShops"
+                        <DataGrid x:Name="dgCompanies"
                                               AutoGenerateColumns="True"
                                               ItemsSource="{Binding}"
                                               Height="200"></DataGrid>

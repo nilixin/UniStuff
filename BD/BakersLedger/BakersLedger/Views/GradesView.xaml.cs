@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public GradesView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var gradesTable = db.RetrieveAll("select * from grades_all_rus");
+            dgGrades.ItemsSource = gradesTable.DefaultView;
         }
     }
 }

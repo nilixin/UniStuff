@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public OwnersView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var ownersTable = db.RetrieveAll("select * from owners_all_rus");
+            dgOwners.ItemsSource = ownersTable.DefaultView;
         }
     }
 }

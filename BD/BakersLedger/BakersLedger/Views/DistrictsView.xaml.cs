@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public DistrictsView()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var districtsTable = db.RetrieveAll("select * from districts_all_rus");
+            dgDistricts.ItemsSource = districtsTable.DefaultView;
         }
     }
 }

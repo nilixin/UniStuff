@@ -23,6 +23,17 @@ namespace BakersLedger.Views
         public TrademarksViews()
         {
             InitializeComponent();
+
+            string? message;
+            Db db = new(Constants.CONN_STRING, out message);
+            if (!string.IsNullOrEmpty(message))
+            {
+                MessageBox.Show(message);
+                return;
+            }
+
+            var trademarksTable = db.RetrieveAll("select * from trademarks_all_rus");
+            dgTrademarks.ItemsSource = trademarksTable.DefaultView;
         }
     }
 }
