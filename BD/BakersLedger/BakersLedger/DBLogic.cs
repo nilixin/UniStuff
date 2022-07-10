@@ -8,7 +8,7 @@ using Npgsql;
 
 namespace BakersLedger
 {
-    class DBLogic
+    public class DBLogic
     {
         private string? _connString = null;
 

@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="BakersLedger.Views.OwnersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BakersLedger.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="660" d:DesignWidth="690">
+    <ScrollViewer>
+        <StackPanel>
+
+            <Border Style="{StaticResource PanelBorder}">
+                <StackPanel Margin="40, 10, 40, 20">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Фамилия</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbOwnersLastname" IsEditable="True"></ComboBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Имя</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbOwnersFirstname" IsEditable="True"></ComboBox>
+                    </Border>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Отчество</TextBlock>
+                    </Border>
+                    <Border>
+                        <ComboBox x:Name="cbOwnersPatronym" IsEditable="True"></ComboBox>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <Separator Height="20" Background="Transparent"/>
+
+            <Border Style="{StaticResource PanelBorder}">
+                <StackPanel Margin="40, 10, 40, 20">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="Margin" Value="0, 0, 0, 10"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Border>
+                        <TextBlock Style="{StaticResource PanelTextBlock}">Таблица</TextBlock>
+                    </Border>
+                    <Border>
+                        <DataGrid x:Name="dgOwners"
+                                              AutoGenerateColumns="True"
+                                              ItemsSource="{Binding}"
+                                              Height="200"></DataGrid>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

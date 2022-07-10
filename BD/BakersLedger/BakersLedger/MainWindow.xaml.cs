@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BakersLedger.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,40 +32,6 @@ namespace BakersLedger
                 MessageBox.Show(message);
                 return;
             }
-
-            // settlements
-            var settlementsTable = dBLogic.RetrieveAll("select * from settlements_all_rus");
-            dgSettlements.DataContext = settlementsTable.DefaultView;
-            dgSettlements.SelectedIndex = 0;
-
-            // grades
-            var gradesTable = dBLogic.RetrieveAll("select * from grades_all_rus");
-            dgGrades.DataContext = gradesTable.DefaultView;
-            dgGrades.SelectedIndex = 0;
-
-            // legals
-            var legalsTable = dBLogic.RetrieveAll("select * from legals_all_rus");
-            dgLegals.DataContext = legalsTable.DefaultView;
-            dgLegals.SelectedIndex = 0;
-
-            // owners
-            var ownersTable = dBLogic.RetrieveAll("select * from owners_all_rus");
-            dgOwners.DataContext = ownersTable.DefaultView;
-            dgOwners.SelectedIndex = 0;
-
-            // districts
-            var districtsTable = dBLogic.RetrieveAll("select * from districts_all_rus");
-            dgDistricts.DataContext = districtsTable.DefaultView;
-            dgDistricts.SelectedIndex = 0;
-
-            // shops
-            var shopsTable = dBLogic.RetrieveAll("select * from shops_all_rus");
-            dgShops.DataContext = shopsTable.DefaultView;
-            dgShops.SelectedIndex = 0;
-
-            // companies
-            // trademarks
-            // deliveries
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -77,52 +44,79 @@ namespace BakersLedger
 
         private void btnDeliveries_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svDeliveries, btnDeliveries);
+            if (DataContext == null)
+                DataContext = new DeliveriesViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnShops_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svShops, btnShops);
-        }
-
-        private void btnProducts_Click(object sender, RoutedEventArgs e)
-        {
-            UIMethods.ToggleVisibility(svProducts, btnProducts);
+            if (DataContext == null)
+                DataContext = new ShopsViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnTrademarks_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svTrademarks, btnTrademarks);
+            if (DataContext == null)
+                DataContext = new TrademarksViewModel();
+            else
+                DataContext = null;
+        }
+
+        private void btnCompanies_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataContext == null)
+                DataContext = new CompaniesViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnOwners_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svOwners, btnOwners);
+            if (DataContext == null)
+                DataContext = new OwnersViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnDistricts_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svDistricts, btnDistricts);
+            if (DataContext == null)
+                DataContext = new DistrictsViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnSettlements_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svSettlements, btnSettlements);
+            if (DataContext == null)
+                DataContext = new SettlementsViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnGrades_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svGrades, btnGrades);
+            if (DataContext == null)
+                DataContext = new GradesViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnLegals_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svLegals, btnLegals);
+            if (DataContext == null)
+                DataContext = new LegalsViewModel();
+            else
+                DataContext = null;
         }
 
         private void btnQueries_Click(object sender, RoutedEventArgs e)
         {
-            UIMethods.ToggleVisibility(svQueries, btnQueries);
+            
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
