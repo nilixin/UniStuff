@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/firstFragment"
+        android:title="Home"
+        android:icon="@drawable/ic_pizzeria_home" />
+    <item
+        android:id="@+id/secondFragment"
+        android:title="Coupon"
+        android:icon="@drawable/ic_pizzeria_coupon" />
+    <item android:id="@+id/thirdFragment"
+        android:title="Menu"
+        android:icon="@drawable/ic_pizzeria_slice" />
+    <item android:id="@+id/fourthFragment"
+        android:title="About"
+        android:icon="@drawable/ic_pizzeria_info" />
+</menu>
